@@ -5,9 +5,15 @@ module Scene
       labels = []
       sprites = []
 
-      args.state.current_level = (args.state.tick_count % 5000 / 100).to_i
+      args.state.current_level ||= 0
 
       lvl = LEVELS[args.state.current_level]
+
+      # only check inputs every so often seconds
+      if args.state.tick_count % 10 < 5
+        args.state.current_level -= 1 if up?(args) && args.state.current_level > 0
+        args.state.current_level += 1 if down?(args) && args.state.current_level < LEVELS.size - 1
+      end
 
       level_height = lvl.size
       level_width  = lvl[0].size
