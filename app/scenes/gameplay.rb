@@ -10,7 +10,7 @@ module Scene
       lvl = LEVELS[args.state.current_level]
 
       # only check inputs every so often seconds
-      if args.state.tick_count % 10 < 5
+      if args.state.tick_count % 10 == 9
         args.state.current_level -= 1 if up?(args) && args.state.current_level > 0
         args.state.current_level += 1 if down?(args) && args.state.current_level < LEVELS.size - 1
       end
@@ -18,16 +18,14 @@ module Scene
       level_height = lvl.size
       level_width  = lvl[0].size
 
-      lvl.reverse.each.with_index do |row, i|
-        row.each.with_index do |cell, j|
-          sprites << {
-            x: j * 36 + (args.grid.w - (level_width * 36)) / 2,
-            y: i * 36 + (args.grid.h - (level_height * 36)) / 2,
-            w: 36,
-            h: 36,
-            path: "sprites/gameplay/#{cell}.png",
-          }
-        end
+      lvl.reverse.map_2d do |i, j, cell|
+        sprites << {
+          x: j * 36 + (args.grid.w - (level_width * 36)) / 2,
+          y: i * 36 + (args.grid.h - (level_height * 36)) / 2,
+          w: 36,
+          h: 36,
+          path: "sprites/gameplay/#{cell}.png",
+        }
       end
 
       # focus tracking
