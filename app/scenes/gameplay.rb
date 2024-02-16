@@ -5,28 +5,19 @@ module Scene
       labels = []
       sprites = []
 
-      args.state.current_level ||= 0
+      args.state.level ||= ::Level.new(args, 0)
 
-      lvl = LEVELS[args.state.current_level]
+      # args.state.current_level ||= 0
+
+      # lvl = LEVELS[args.state.current_level]
 
       # only check inputs every so often seconds
-      if args.state.tick_count % 10 == 9
-        args.state.current_level -= 1 if up?(args) && args.state.current_level > 0
-        args.state.current_level += 1 if down?(args) && args.state.current_level < LEVELS.size - 1
-      end
+      # if args.state.tick_count % 10 == 9
+      #   args.state.current_level -= 1 if up?(args) && args.state.current_level > 0
+      #   args.state.current_level += 1 if down?(args) && args.state.current_level < LEVELS.size - 1
+      # end
 
-      level_height = lvl.size
-      level_width  = lvl[0].size
-
-      lvl.reverse.map_2d do |i, j, cell|
-        sprites << {
-          x: j * 36 + (args.grid.w - (level_width * 36)) / 2,
-          y: i * 36 + (args.grid.h - (level_height * 36)) / 2,
-          w: 36,
-          h: 36,
-          path: "sprites/gameplay/#{cell}.png",
-        }
-      end
+      args.state.level.tick
 
       # focus tracking
       if !args.state.has_focus && args.inputs.keyboard.has_focus
@@ -45,9 +36,9 @@ module Scene
       draw_bg(args, BLACK)
 
       labels << label("Sokoban", x: 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD)
-      labels << label("Level #{args.state.current_level.succ}", x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
+      labels << label("Level #{args.state.level.index}", x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
       args.outputs.labels << labels
-      args.outputs.sprites << sprites
+      # args.outputs.sprites << level.sprites
     end
 
     def pause(args)

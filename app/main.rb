@@ -16,6 +16,13 @@ require "app/scenes/settings.rb"
 
 require "data/levels.rb"
 
+require "app/models/level.rb"
+require "app/models/tile.rb"
+require "app/models/player.rb"
+require "app/models/target.rb"
+require "app/models/crate.rb"
+require "app/models/wall.rb"
+
 # NOTE: add all requires above this
 
 require "app/tick.rb"
