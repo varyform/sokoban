@@ -30,7 +30,7 @@ module Scene
         size: SIZE_XS, align: ALIGN_LEFT)
       labels << label(
         title.upcase, x: args.grid.w / 2, y: args.grid.top - 100,
-        size: SIZE_LG, align: ALIGN_CENTER, font: FONT_BOLD_ITALIC)
+        size: SIZE_LG, align: ALIGN_CENTER, font: FONT_BOLD)
       labels << label(
         "#{text(:made_by)} #{dev_title}",
         x: args.grid.left + 24, y: 48,
@@ -46,6 +46,5 @@ module Scene
 
       args.outputs.labels << labels
     end
-
   end
 end

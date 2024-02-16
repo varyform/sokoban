@@ -2,14 +2,13 @@ module Sprite
   # annoying to track but useful for reloading with +i+ in debug mode; would be
   # nice to define a different way
   SPRITES = {
-    bullet: "sprites/bullet.png",
-    enemy: "sprites/enemy.png",
-    enemy_king: "sprites/enemy_king.png",
-    enemy_super: "sprites/enemy_super.png",
-    exp_chip: "sprites/exp_chip.png",
-    familiar: "sprites/familiar.png",
-    player: "sprites/player.png",
-    pause: "sprites/pause.png",
+    none:           'sprites/gameplay/0.png',
+    crate:          'sprites/gameplay/1.png',
+    crate_in_place: 'sprites/gameplay/2.png',
+    empty:          'sprites/gameplay/3.png',
+    placeholder:    'sprites/gameplay/4.png',
+    player:         'sprites/gameplay/5.png',
+    wall:           'sprites/gameplay/7.png'
   }
 
   class << self

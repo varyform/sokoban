@@ -5,6 +5,25 @@ module Scene
       labels = []
       sprites = []
 
+      args.state.current_level = (args.state.tick_count % 5000 / 100).to_i
+
+      lvl = LEVELS[args.state.current_level]
+
+      level_height = lvl.size
+      level_width  = lvl[0].size
+
+      lvl.reverse.each.with_index do |row, i|
+        row.each.with_index do |cell, j|
+          sprites << {
+            x: j * 36 + (args.grid.w - (level_width * 36)) / 2,
+            y: i * 36 + (args.grid.h - (level_height * 36)) / 2,
+            w: 36,
+            h: 36,
+            path: "sprites/gameplay/#{cell}.png",
+          }
+        end
+      end
+
       # focus tracking
       if !args.state.has_focus && args.inputs.keyboard.has_focus
         args.state.has_focus = true
@@ -21,7 +40,8 @@ module Scene
 
       draw_bg(args, BLACK)
 
-      labels << label("GAMEPLAY", x: 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD)
+      labels << label("Sokoban", x: 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD)
+      labels << label(args.state.current_level, x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
       args.outputs.labels << labels
       args.outputs.sprites << sprites
     end
