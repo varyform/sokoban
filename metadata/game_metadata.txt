@@ -1,7 +1,7 @@
-devid=myitchusername
-devtitle=My Name
-gameid=my-game-title
-gametitle=My Game Title
+devid=varyform
+devtitle=varyform
+gameid=sokoban-varyform
+gametitle=Sokoban
 version=0.1-dev
 icon=metadata/icon.png
 
