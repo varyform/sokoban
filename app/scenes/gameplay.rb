@@ -45,7 +45,7 @@ module Scene
       draw_bg(args, BLACK)
 
       labels << label("Sokoban", x: 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD)
-      labels << label(args.state.current_level, x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
+      labels << label("Level #{args.state.current_level.succ}", x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
       args.outputs.labels << labels
       args.outputs.sprites << sprites
     end
