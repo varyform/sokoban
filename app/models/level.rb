@@ -45,29 +45,16 @@ class Level
   def render
     groups = @entities.group_by { |e| e.class.name }
 
-    # puts groups.keys
-
-    sprites = groups["Wall"].map { |e| sprite_for(e) }
-    sprites << groups["Empty"].map { |e| sprite_for(e) }
-    sprites << groups["Target"].map { |e| sprite_for(e) }
-    sprites << groups["Crate"].map { |e| sprite_for(e) }
-    sprites << groups["Player"].map { |e| sprite_for(e) }
+    sprites = groups["Wall"].map(&:render)
+    sprites << groups["Empty"].map(&:render)
+    sprites << groups["Target"].map(&:render)
+    sprites << groups["Crate"].map(&:render)
+    sprites << groups["Player"].map(&:render)
 
     outputs.sprites << sprites
   end
 
   private
-
-  def sprite_for(entity)
-    # puts "Entity: #{entity.class}"
-    {
-      x: entity.x * 36 + (grid.w - (width * 36)) / 2,
-      y: entity.y * 36 + (grid.h - (height * 36)) / 2,
-      w: 36,
-      h: 36,
-      path: entity.sprite
-    }
-  end
 
   def height
     @map.size

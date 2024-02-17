@@ -1,10 +1,4 @@
 class Player < Tile
-  def tick
-    @moving -= 1 if @moving
-
-    @moving = false if @moving && @moving <= 0
-  end
-
   def can_move?(direction)
     return false if @moving
 
@@ -18,7 +12,7 @@ class Player < Tile
   end
 
   def move!(direction)
-    @moving = 10
+    @moving = 12
 
     play_step
 
