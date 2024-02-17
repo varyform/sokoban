@@ -30,6 +30,10 @@ class Tile
   end
 
   def entity_at(direction)
+    entities_at(direction).first
+  end
+
+  def entities_at(direction)
     target_coordinates = case direction
     when :up then { y: @y + 1, x: @x }
     when :down then { y: @y - 1, x: @x }
@@ -37,11 +41,11 @@ class Tile
     when :right then { y: @y, x: @x + 1 }
     end
 
-    state.level.entities.find { |e| e.x == target_coordinates.x && e.y == target_coordinates.y }
+    state.level.entities.select { |e| e.x == target_coordinates.x && e.y == target_coordinates.y }
   end
 
   def any_of_type_in_place?(klass)
-    state.level.entities.any? { |e| e.class == klass }
+    state.level.entities.any? { |e| e.class == klass && e.x == x && e.y == y }
   end
 
   def swap_with!(other)
