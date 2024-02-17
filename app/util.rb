@@ -169,3 +169,15 @@ end
 def first_scene_tick?(args)
   true if (args.tick_count - args.state.scene_switch_tick) == 1
 end
+
+def formatted_duration(total_seconds)
+  total_seconds = total_seconds.round # to avoid fractional seconds potentially compounding and messing up seconds, minutes and hours
+  hours = total_seconds / (60*60)
+  minutes = (total_seconds / 60) % 60 # the modulo operator (%) gives the remainder when leftside is divided by rightside. Ex: 121 % 60 = 1
+  seconds = total_seconds % 60
+  [hours, minutes, seconds].map do |t|
+    # Right justify and pad with 0 until length is 2.
+    # So if the duration of any of the time components is 0, then it will display as 00
+    t.round.to_s.rjust(2,'0')
+  end.join(':')
+end
