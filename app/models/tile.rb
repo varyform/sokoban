@@ -1,7 +1,7 @@
 class Tile
   attr_gtk
 
-  attr_accessor :x, :y
+  attr_accessor :x, :y, :moving
 
   def initialize(args, x, y)
     self.args = args
@@ -22,6 +22,8 @@ class Tile
   def can_move?(direction)
     puts "Can move? #{self.class} at [#{x},#{y}] -> #{direction} #{entity_at(direction).class} // #{caller}"
 
+    return false if @moving
+
     false
   end
 
@@ -29,8 +31,12 @@ class Tile
     raise "Override"
   end
 
+  def entity_at?(direction, klass)
+    entities_at(direction).any? { |e| e.class == klass }
+  end
+
   def entity_at(direction)
-    entities_at(direction).first
+    entities_at(direction).sort_by { |e| [Crate, Target, Empty].index(e.class) }.first
   end
 
   def entities_at(direction)
