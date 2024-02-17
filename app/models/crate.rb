@@ -12,6 +12,8 @@ class Crate < Tile
 
     puts "Moving Crate to #{target.x} - #{target.y} #{target.class}"
 
+    play_sfx(args, "crate/moving")
+
     place_on_top_of!(target)
   end
 
