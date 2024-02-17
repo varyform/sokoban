@@ -14,6 +14,8 @@ class Crate < Tile
   def move!(direction)
     @moving = 18
 
+    state.level.stats.pushes += 1
+
     target = entity_at(direction)
 
     # puts "Moving Crate to #{target.x} - #{target.y} #{target.class}"

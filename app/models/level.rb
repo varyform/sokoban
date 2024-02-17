@@ -1,6 +1,6 @@
 class Level
   attr_gtk
-  attr_reader :entities
+  attr_reader :entities, :stats
 
   def initialize(args, index)
     raise "Wrong level #{index}" if index < 0 or index > 49
@@ -9,7 +9,7 @@ class Level
     @index    = index
     @map      = LEVELS[@index]
 
-    @entities = setup
+    reset_level!
   end
 
   def title
@@ -26,6 +26,7 @@ class Level
 
   def reset_level!
     @entities = setup
+    @stats    = default_stats
   end
 
   def process_inputs
@@ -79,5 +80,9 @@ class Level
       when 7 then Wall.new(args, x, y)
       end
     end.compact.flatten
+  end
+
+  def default_stats
+    { moves: 0, pushes: 0, time: 0 }
   end
 end
