@@ -10,13 +10,9 @@ class Crate < Tile
   def move!(direction)
     target = entity_at(direction)
 
-    # puts target
+    puts "Moving Crate to #{target.x} - #{target.y} #{target.class}"
 
-    if target.is_a?(Target)
-      place_on_top_of!(target)
-    else
-      swap_with!(target)
-    end
+    place_on_top_of!(target)
   end
 
   def sprite

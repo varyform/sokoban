@@ -21,23 +21,11 @@ class Player < Tile
     @moving = 10
 
     target = entity_at(direction)
+    target.move!(direction) if target.is_a?(Crate)
 
-    if target.is_a?(Crate)
-      puts "Moving Crate at #{target.x} - #{target.y}"
-      target.move!(direction)
-      target = entity_at(direction)
-      # swap_with!(target)
-      place_on_top_of!(target)
-    elsif target.is_a?(Empty)
-      place_on_top_of!(target)
-      # if any_of_type_in_place?(Target)
-      #   place_on_top_of!(target)
-      # else
-      #   swap_with!(target)
-      # end
-    elsif target.is_a?(Target)
-      place_on_top_of!(target)
-    end
+    # move to new empty block
+    target = entity_at(direction)
+    place_on_top_of!(target)
   end
 
   def sprite
