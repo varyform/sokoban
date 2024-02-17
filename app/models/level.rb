@@ -23,6 +23,7 @@ class Level
     @entities.map(&:tick)
 
     if won?
+      play_sfx(args, "won")
       @index += 1
       reset_level!
     end
