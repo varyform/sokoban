@@ -19,12 +19,16 @@ class Tile
     @moving = false if @moving && @moving <= 0
   end
 
+  def weight
+    0
+  end
+
   def sprite
     raise "Override"
   end
 
   def can_move?(direction)
-    puts "Can move? #{self.class} at [#{x},#{y}] -> #{direction} #{entity_at(direction).class} // #{caller}"
+    # puts "Can move? #{self.class} at [#{x},#{y}] -> #{direction} #{entity_at(direction).class} // #{caller}"
 
     return false if @moving
 
@@ -35,7 +39,7 @@ class Tile
     raise "Override"
   end
 
-  def render
+  def to_sprite
     offset = if @moving
       case @move_direction
       when :left then { x: @moving, y: 0 }
@@ -56,12 +60,8 @@ class Tile
     }
   end
 
-  def entity_at?(direction, klass)
-    entities_at(direction).any? { |e| e.class == klass }
-  end
-
   def entity_at(direction)
-    entities_at(direction).sort_by { |e| [Crate, Target, Empty].index(e.class) }.first
+    entities_at(direction).sort_by { |e| -e.weight }.first
   end
 
   def entities_at(direction)

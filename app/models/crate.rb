@@ -7,12 +7,16 @@ class Crate < Tile
     target.is_a?(Empty) || target.is_a?(Target)
   end
 
+  def weight
+    40
+  end
+
   def move!(direction)
     @moving = 18
 
     target = entity_at(direction)
 
-    puts "Moving Crate to #{target.x} - #{target.y} #{target.class}"
+    # puts "Moving Crate to #{target.x} - #{target.y} #{target.class}"
 
     play_sfx(args, "crate/moving")
 
