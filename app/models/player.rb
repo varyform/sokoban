@@ -20,13 +20,15 @@ class Player < Tile
       puts "Moving Crate at #{target.x} - #{target.y}"
       target.move!(direction)
       target = entity_at(direction)
-      swap_with!(target)
+      # swap_with!(target)
+      place_on_top_of!(target)
     elsif target.is_a?(Empty)
-      if any_of_type_in_place?(Target)
-        place_on_top_of!(target)
-      else
-        swap_with!(target)
-      end
+      place_on_top_of!(target)
+      # if any_of_type_in_place?(Target)
+      #   place_on_top_of!(target)
+      # else
+      #   swap_with!(target)
+      # end
     elsif target.is_a?(Target)
       place_on_top_of!(target)
     end
