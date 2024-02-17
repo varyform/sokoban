@@ -54,7 +54,7 @@ class Level
   end
 
   def render
-    outputs.sprites << @entities.sort_by { |e| e.weight }.map(&:to_sprite)
+    outputs.sprites << @entities.sort_by(&:weight).map(&:to_sprite)
   end
 
   private

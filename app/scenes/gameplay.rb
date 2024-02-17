@@ -35,11 +35,13 @@ module Scene
 
       draw_bg(args, BLACK)
       args.outputs.solids << { x: args.grid.left, y: args.grid.bottom, w: args.grid.w, h: 40, r: 200, g: 200, b: 200 }
+      args.outputs.solids << { x: 91, y: args.grid.bottom, w: 3, h: 40 }.merge(BLACK)
+      args.outputs.solids << { x: 308, y: args.grid.bottom, w: 3, h: 40 }.merge(BLACK)
 
       labels << label(title, x: 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD)
       # labels << label("Level #{args.state.level.title}", x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
 
-      stats = "%02d | MOVES: %04d | PUSHES: %04d" % [args.state.level.title, args.state.level.stats.moves, args.state.level.stats.pushes]
+      stats = "%02d   MOVES: %04d   PUSHES: %04d" % [args.state.level.title, args.state.level.stats.moves, args.state.level.stats.pushes]
       time  = formatted_duration(Time.now - args.state.level.stats.time)
 
       labels << label(stats, x: 40, y: args.grid.bottom + 35, size: SIZE_MD, color: BLACK)
