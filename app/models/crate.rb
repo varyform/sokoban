@@ -8,6 +8,8 @@ class Crate < Tile
   end
 
   def move!(direction)
+    @moving = 18
+
     target = entity_at(direction)
 
     puts "Moving Crate to #{target.x} - #{target.y} #{target.class}"

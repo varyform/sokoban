@@ -10,9 +10,13 @@ class Tile
     @y = y
 
     @moving = false
+    @move_direction = nil
   end
 
   def tick
+    @moving -= 1 if @moving
+
+    @moving = false if @moving && @moving <= 0
   end
 
   def sprite
@@ -29,6 +33,27 @@ class Tile
 
   def move!(direction)
     raise "Override"
+  end
+
+  def render
+    offset = if @moving
+      case @move_direction
+      when :left then { x: @moving, y: 0 }
+      when :right then { x: -@moving, y: 0 }
+      when :down then { x: 0, y: -@moving }
+      when :up then { x: 0, y: @moving }
+      end
+    else
+      { x: 0, y: 0 }
+    end
+
+    {
+      x: x * 36 + offset.x + (grid.w - (state.level.width * 36)) / 2,
+      y: y * 36 + offset.y + (grid.h - (state.level.height * 36)) / 2,
+      w: 36,
+      h: 36,
+      path: sprite
+    }
   end
 
   def entity_at?(direction, klass)
@@ -54,18 +79,12 @@ class Tile
     state.level.entities.any? { |e| e.class == klass && e.x == x && e.y == y }
   end
 
-  def swap_with!(other)
-    other_x = other.x
-    other_y = other.y
-
-    other.x = @x
-    other.y = @y
-
-    @x = other_x
-    @y = other_y
-  end
-
   def place_on_top_of!(other)
+    @move_direction = :right if other.x > @x
+    @move_direction = :left if other.x < @x
+    @move_direction = :down if other.y > @y
+    @move_direction = :up if other.y < @y
+
     @x = other.x
     @y = other.y
   end
