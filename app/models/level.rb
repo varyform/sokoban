@@ -7,7 +7,6 @@ class Level
 
     self.args = args
     @index    = index
-    @map      = LEVELS[@index]
 
     reset_level!
   end
@@ -22,9 +21,19 @@ class Level
     process_inputs
 
     @entities.map(&:tick)
+
+    if won?
+      @index += 1
+      reset_level!
+    end
+  end
+
+  def won?
+    @entities.select { |e| e.is_a?(Crate) }.all? { |crate| crate.any_of_type_in_place?(Target) }
   end
 
   def reset_level!
+    @map      = LEVELS[@index]
     @entities = setup
     @stats    = default_stats
   end
