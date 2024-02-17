@@ -93,6 +93,6 @@ class Level
   end
 
   def default_stats
-    { moves: 0, pushes: 0, time: 0 }
+    { moves: 0, pushes: 0, time: Time.now }
   end
 end

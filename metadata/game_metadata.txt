@@ -1,7 +1,7 @@
 devid=varyform
 devtitle=varyform
 gameid=sokoban-varyform
-gametitle=Sokoban
+gametitle=Soko-Ban
 version=0.1-dev
 icon=metadata/icon.png
 
