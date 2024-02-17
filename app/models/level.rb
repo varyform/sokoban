@@ -1,6 +1,6 @@
 class Level
   attr_gtk
-  attr_reader :index
+  attr_reader :index, :entities
 
   def initialize(args, index)
     raise "Wrong level #{index}" if index < 0 or index > 49
@@ -14,6 +14,20 @@ class Level
 
   def tick
     render
+
+    inputs
+  end
+
+  def inputs
+    # only check inputs every so often seconds
+    if state.tick_count % 10 == 9
+      player = @entities.find { |e| e.is_a?(Player) }
+
+      player.move!(:up) if up?(args) && player.can_move?(:up)
+      player.move!(:down) if down?(args) && player.can_move?(:down)
+      player.move!(:left) if left?(args) && player.can_move?(:left)
+      player.move!(:right) if right?(args) && player.can_move?(:right)
+    end
   end
 
   def render
@@ -21,6 +35,8 @@ class Level
     width  = @map[0].size
 
     sprites = @entities.map do |e|
+      next unless e
+
       {
         x: e.x * 36 + (grid.w - (width * 36)) / 2,
         y: e.y * 36 + (grid.h - (height * 36)) / 2,
@@ -28,7 +44,7 @@ class Level
         h: 36,
         path: e.sprite,
       }
-    end
+    end.compact
 
     outputs.sprites << sprites
   end
@@ -44,7 +60,7 @@ class Level
           Target.new(args, x, y),
           Crate.new(args, x, y)
         ]
-      when 3 then Tile.new(args, x, y)
+      when 3 then Empty.new(args, x, y)
       when 4 then Target.new(args, x, y)
       when 5 then Player.new(args, x, y)
       when 7 then Wall.new(args, x, y)

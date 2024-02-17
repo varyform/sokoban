@@ -3,10 +3,12 @@ class Crate < Tile
     false
   end
 
-  def cam_move?
-    return unless super
+  def can_move?(direction)
+    entity_at(direction).is_a?(Empty)
+  end
 
-    # add logic
+  def move!(direction)
+    swap_with!(entity_at(direction)) unless entity_at(direction).is_a?(Target)
   end
 
   def sprite

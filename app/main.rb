@@ -18,6 +18,7 @@ require "data/levels.rb"
 
 require "app/models/level.rb"
 require "app/models/tile.rb"
+require "app/models/empty.rb"
 require "app/models/player.rb"
 require "app/models/target.rb"
 require "app/models/crate.rb"
