@@ -10,6 +10,8 @@ class Level
     @map      = LEVELS[@index]
 
     @entities = setup
+
+    puts @entities
   end
 
   def tick
@@ -31,25 +33,36 @@ class Level
   end
 
   def render
-    height = @map.size
-    width  = @map[0].size
+    groups = @entities.group_by { |e| e.class.name }
 
-    sprites = @entities.map do |e|
-      next unless e
-
-      {
-        x: e.x * 36 + (grid.w - (width * 36)) / 2,
-        y: e.y * 36 + (grid.h - (height * 36)) / 2,
-        w: 36,
-        h: 36,
-        path: e.sprite,
-      }
-    end.compact
+    sprites = groups["Wall"].map { |e| sprite_for(e) }
+    sprites << groups["Empty"].map { |e| sprite_for(e) }
+    sprites << groups["Target"].map { |e| sprite_for(e) }
+    sprites << groups["Crate"].map { |e| sprite_for(e) }
+    sprites << groups["Player"].map { |e| sprite_for(e) }
 
     outputs.sprites << sprites
   end
 
   private
+
+  def sprite_for(entity)
+    {
+      x: entity.x * 36 + (grid.w - (width * 36)) / 2,
+      y: entity.y * 36 + (grid.h - (height * 36)) / 2,
+      w: 36,
+      h: 36,
+      path: entity.sprite
+    }
+  end
+
+  def height
+    @map.size
+  end
+
+  def width
+    @map[0].size
+  end
 
   def setup
     @map.reverse.map_2d do |y, x, cell|
@@ -62,9 +75,13 @@ class Level
         ]
       when 3 then Empty.new(args, x, y)
       when 4 then Target.new(args, x, y)
-      when 5 then Player.new(args, x, y)
+      when 5 then # still should be able to move back to starting position
+        [
+          Empty.new(args, x, y),
+          Player.new(args, x, y)
+        ]
       when 7 then Wall.new(args, x, y)
       end
-    end.compact.flat_map
+    end.compact.flatten
   end
 end

@@ -4,11 +4,19 @@ class Crate < Tile
   end
 
   def can_move?(direction)
-    entity_at(direction).is_a?(Empty)
+    target = entity_at(direction)
+
+    target.is_a?(Empty) || target.is_a?(Target)
   end
 
   def move!(direction)
-    swap_with!(entity_at(direction)) unless entity_at(direction).is_a?(Target)
+    target = entity_at(direction)
+
+    if target.is_a?(Target)
+      place_on_top_of!(target)
+    else
+      swap_with!(target)
+    end
   end
 
   def sprite
