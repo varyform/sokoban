@@ -55,7 +55,7 @@ class Level
   private
 
   def sprite_for(entity)
-    puts "Entity: #{entity.class}"
+    # puts "Entity: #{entity.class}"
     {
       x: entity.x * 36 + (grid.w - (width * 36)) / 2,
       y: entity.y * 36 + (grid.h - (height * 36)) / 2,
