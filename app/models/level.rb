@@ -10,8 +10,6 @@ class Level
     @map      = LEVELS[@index]
 
     @entities = setup
-
-    puts @entities
   end
 
   def tick
