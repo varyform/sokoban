@@ -34,11 +34,18 @@ module Scene
       tick_pause_button(args, sprites) if mobile?
 
       draw_bg(args, BLACK)
+      args.outputs.solids << { x: args.grid.left, y: args.grid.bottom, w: args.grid.w, h: 40, r: 200, g: 200, b: 200 }
 
       labels << label("Sokoban", x: 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD)
-      labels << label("Level #{args.state.level.title}", x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
+      # labels << label("Level #{args.state.level.title}", x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
+
+      stats = "%02d | MOVES: %04d | PUSHES: %04d" % [args.state.level.title, args.state.level.stats.moves, args.state.level.stats.pushes]
+
+      labels << label(stats, x: 40, y: args.grid.bottom + 35, size: SIZE_MD, color: BLACK)
+      # labels << label("#{args.state.level.stats.moves} ", x: 140, y: args.grid.bottom + 40, size: SIZE_LG, color: BLACK)
+      # labels << label("#{args.state.level.stats.pushes} ", x: 240, y: args.grid.bottom + 40, size: SIZE_LG, color: BLACK)
+
       args.outputs.labels << labels
-      # args.outputs.sprites << level.sprites
     end
 
     def pause(args)

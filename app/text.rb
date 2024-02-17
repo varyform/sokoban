@@ -33,10 +33,10 @@ SIZE_SM = 4
 SIZE_MD = 6
 SIZE_LG = 10
 
-FONT_REGULAR = "fonts/Atkinson-Hyperlegible-Regular-102.ttf"
-FONT_ITALIC = "fonts/Atkinson-Hyperlegible-Italic-102.ttf"
-FONT_BOLD = "fonts/Atkinson-Hyperlegible-Bold-102.ttf"
-FONT_BOLD_ITALIC = "fonts/Atkinson-Hyperlegible-BoldItalic-102.ttf"
+FONT_REGULAR = "fonts/diffusion-light"
+FONT_ITALIC = "fonts/diffusion-light"
+FONT_BOLD = "fonts/diffusion-light"
+FONT_BOLD_ITALIC = "fonts/diffusion-light"
 
 # Friendly method with sensible defaults for creating DRGTK label data
 # structures.

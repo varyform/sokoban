@@ -18,6 +18,8 @@ class Player < Tile
   def move!(direction)
     @moving = 12
 
+    state.level.stats.moves += 1
+
     play_step
 
     target = entity_at(direction)
