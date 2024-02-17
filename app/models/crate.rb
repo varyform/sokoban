@@ -11,8 +11,12 @@ class Crate < Tile
     40
   end
 
+  def frames
+    12
+  end
+
   def move!(direction)
-    @moving = 18
+    @moving = frames
 
     state.level.stats.pushes += 1
 
@@ -20,7 +24,12 @@ class Crate < Tile
 
     # puts "Moving Crate to #{target.x} - #{target.y} #{target.class}"
 
-    play_sfx(args, "crate/moving")
+    # play_sfx(args, "crate/moving")
+
+    if state.setting.sfx
+      audio.delete :crate
+      audio[:crate] = { input: "sounds/crate/moving.wav" }
+    end
 
     place_on_top_of!(target)
   end
