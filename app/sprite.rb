@@ -8,7 +8,8 @@ module Sprite
     empty:          'sprites/gameplay/3.png',
     placeholder:    'sprites/gameplay/4.png',
     player:         'sprites/gameplay/5.png',
-    wall:           'sprites/gameplay/7.png'
+    wall:           'sprites/gameplay/7.png',
+    pause:          'sprites/pause.png'
   }
 
   class << self

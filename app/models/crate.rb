@@ -20,6 +20,10 @@ class Crate < Tile
   end
 
   def sprite
-    "sprites/gameplay/1.png"
+    if any_of_type_in_place?(Target)
+      "sprites/gameplay/2.png"
+    else
+      "sprites/gameplay/1.png"
+    end
   end
 end
