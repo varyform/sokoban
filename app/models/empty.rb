@@ -6,4 +6,8 @@ class Empty < Tile
   def can_move?(direction)
     return false
   end
+
+  def weight
+    10
+  end
 end

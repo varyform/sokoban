@@ -43,15 +43,7 @@ class Level
   end
 
   def render
-    groups = @entities.group_by { |e| e.class.name }
-
-    sprites = groups["Wall"].map(&:render)
-    sprites << groups["Empty"].map(&:render)
-    sprites << groups["Target"].map(&:render)
-    sprites << groups["Crate"].map(&:render)
-    sprites << groups["Player"].map(&:render)
-
-    outputs.sprites << sprites
+    outputs.sprites << @entities.sort_by { |e| e.weight }.map(&:to_sprite)
   end
 
   private

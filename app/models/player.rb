@@ -4,11 +4,15 @@ class Player < Tile
 
     target = entity_at(direction)
 
-    puts "#{target.class}"
+    # puts "#{target.class}"
 
     return target.can_move?(direction) if target.is_a?(Crate)
 
     super(direction) || target.is_a?(Empty) || target.is_a?(Target)
+  end
+
+  def weight
+    50
   end
 
   def move!(direction)
@@ -25,8 +29,13 @@ class Player < Tile
   end
 
   def play_step
-    step = random(1, 8)
-    play_sfx(args, "steps/#{step}")
+    # make sure sound is deleted so it can play for every step
+    if state.setting.sfx
+      step = random(1, 8)
+      audio.delete :step
+      audio[:step] = { input: "sounds/steps/#{step}.wav" }
+    end
+    # play_sfx(args, "steps/#{step}")
   end
 
   def sprite
