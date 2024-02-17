@@ -40,6 +40,10 @@ class Tile
     state.level.entities.find { |e| e.x == target_coordinates.x && e.y == target_coordinates.y }
   end
 
+  def any_of_type_in_place?(klass)
+    state.level.entities.any? { |e| e.class == klass }
+  end
+
   def swap_with!(other)
     other_x = other.x
     other_y = other.y
@@ -49,5 +53,10 @@ class Tile
 
     @x = other_x
     @y = other_y
+  end
+
+  def place_on_top_of!(other)
+    @x = other.x
+    @y = other.y
   end
 end
