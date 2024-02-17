@@ -15,23 +15,33 @@ class Level
   def tick
     render
 
-    inputs
+    process_inputs
+
+    @entities.map(&:tick)
   end
 
-  def inputs
+  def reset_level!
+    @entities = setup
+  end
+
+  def process_inputs
     # only check inputs every so often seconds
-    if state.tick_count % 10 == 9
+    # if state.tick_count % 10 == 9
       player = @entities.find { |e| e.is_a?(Player) }
 
       player.move!(:up) if up?(args) && player.can_move?(:up)
       player.move!(:down) if down?(args) && player.can_move?(:down)
       player.move!(:left) if left?(args) && player.can_move?(:left)
       player.move!(:right) if right?(args) && player.can_move?(:right)
-    end
+
+      reset_level! if inputs.keyboard.key_down.q or inputs.keyboard.key_held.q
+    # end
   end
 
   def render
     groups = @entities.group_by { |e| e.class.name }
+
+    # puts groups.keys
 
     sprites = groups["Wall"].map { |e| sprite_for(e) }
     sprites << groups["Empty"].map { |e| sprite_for(e) }
@@ -45,6 +55,7 @@ class Level
   private
 
   def sprite_for(entity)
+    puts "Entity: #{entity.class}"
     {
       x: entity.x * 36 + (grid.w - (width * 36)) / 2,
       y: entity.y * 36 + (grid.h - (height * 36)) / 2,
@@ -65,7 +76,11 @@ class Level
   def setup
     @map.reverse.map_2d do |y, x, cell|
       case cell
-      when 1 then Crate.new(args, x, y)
+      when 1 then
+        [
+          Empty.new(args, x, y),
+          Crate.new(args, x, y)
+        ]
       when 2 then
         [
           Target.new(args, x, y),

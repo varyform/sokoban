@@ -1,9 +1,7 @@
 class Crate < Tile
-  def static?
-    false
-  end
-
   def can_move?(direction)
+    # return false unless super(direction)
+
     target = entity_at(direction)
 
     target.is_a?(Empty) || target.is_a?(Target)
@@ -11,6 +9,8 @@ class Crate < Tile
 
   def move!(direction)
     target = entity_at(direction)
+
+    # puts target
 
     if target.is_a?(Target)
       place_on_top_of!(target)

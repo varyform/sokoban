@@ -1,9 +1,13 @@
 class Player < Tile
-  def static?
-    false
+  def tick
+    @moving -= 1 if @moving
+
+    @moving = false if @moving && @moving <= 0
   end
 
   def can_move?(direction)
+    return false if @moving
+
     target = entity_at(direction)
 
     puts "#{target.class}"
@@ -14,6 +18,8 @@ class Player < Tile
   end
 
   def move!(direction)
+    @moving = 10
+
     target = entity_at(direction)
 
     if target.is_a?(Crate)
