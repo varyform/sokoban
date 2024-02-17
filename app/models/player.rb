@@ -15,8 +15,12 @@ class Player < Tile
     50
   end
 
+  def frames
+    12
+  end
+
   def move!(direction)
-    @moving = 12
+    @moving = frames
 
     state.level.stats.moves += 1
 
@@ -25,6 +29,7 @@ class Player < Tile
     target = entity_at(direction)
     target.move!(direction) if target.is_a?(Crate)
 
+    return if state.level.won?
     # move to new empty block
     target = entity_at(direction)
     place_on_top_of!(target)

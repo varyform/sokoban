@@ -1,4 +1,6 @@
 class Tile
+  SIZE = 36
+
   attr_gtk
 
   attr_accessor :x, :y, :moving
@@ -21,6 +23,10 @@ class Tile
 
   def weight
     0
+  end
+
+  def frames
+    SIZE # move instantly
   end
 
   def sprite
@@ -52,10 +58,10 @@ class Tile
     end
 
     {
-      x: x * 36 + offset.x + (grid.w - (state.level.width * 36)) / 2,
-      y: y * 36 + offset.y + (grid.h - (state.level.height * 36)) / 2,
-      w: 36,
-      h: 36,
+      x: x * SIZE + SIZE / frames * offset.x + (grid.w - (state.level.width * SIZE)) / 2,
+      y: y * SIZE + SIZE / frames * offset.y + (grid.h - (state.level.height * SIZE)) / 2,
+      w: SIZE,
+      h: SIZE,
       path: sprite
     }
   end
