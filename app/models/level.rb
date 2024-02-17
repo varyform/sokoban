@@ -1,6 +1,6 @@
 class Level
   attr_gtk
-  attr_reader :index, :entities
+  attr_reader :entities
 
   def initialize(args, index)
     raise "Wrong level #{index}" if index < 0 or index > 49
@@ -10,6 +10,10 @@ class Level
     @map      = LEVELS[@index]
 
     @entities = setup
+  end
+
+  def title
+    @index.succ
   end
 
   def tick

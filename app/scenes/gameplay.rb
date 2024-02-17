@@ -5,7 +5,7 @@ module Scene
       labels = []
       sprites = []
 
-      args.state.level ||= ::Level.new(args, 14)
+      args.state.level ||= ::Level.new(args, 0)
 
       # args.state.current_level ||= 0
 
@@ -36,7 +36,7 @@ module Scene
       draw_bg(args, BLACK)
 
       labels << label("Sokoban", x: 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD)
-      labels << label("Level #{args.state.level.index}", x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
+      labels << label("Level #{args.state.level.title}", x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
       args.outputs.labels << labels
       # args.outputs.sprites << level.sprites
     end
