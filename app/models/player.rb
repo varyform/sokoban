@@ -3,10 +3,26 @@ class Player < Tile
     false
   end
 
-  def cam_move?(direction)
-    return false unless super(direction)
+  def can_move?(direction)
+    target = entity_at(direction)
 
-    # add logic
+    puts "#{target.class}"
+
+    return target.can_move?(direction) if target.is_a?(Crate)
+
+    super(direction) || target.is_a?(Empty)
+  end
+
+  def move!(direction)
+    target = entity_at(direction)
+
+    if target.is_a?(Crate)
+      puts "Moving Crate at #{target.x} - #{target.y}"
+      target.move!(direction)
+      target = entity_at(direction)
+    end
+
+    swap_with!(target)
   end
 
   def sprite
