@@ -1,6 +1,6 @@
 class Level
   attr_gtk
-  attr_reader :entities, :stats
+  attr_reader :entities, :stats, :completed_at
 
   def initialize(args, index)
     raise "Wrong level #{index}" if index < 0 or index > 49
@@ -22,21 +22,35 @@ class Level
 
     @entities.map(&:tick)
 
-    if won?
-      play_sfx(args, "won")
-      @index += 1
-      reset_level!
+    if finished?
+      @completion_timer -= 1
+
+      if @completion_timer <= 0
+        @index += 1
+        reset_level!
+      end
     end
   end
 
-  def won?
-    @entities.select { |e| e.is_a?(Crate) }.all? { |crate| crate.any_of_type_in_place?(Target) }
+  def finished?
+    return true if @completed_at
+
+    all_done = @entities.select { |e| e.is_a?(Crate) }.all? { |crate| crate.any_of_type_in_place?(Target) }
+
+    if all_done
+      play_sfx(args, "won")
+      @completed_at = Time.now
+    end
+
+    all_done
   end
 
   def reset_level!
-    @map      = LEVELS[@index]
-    @entities = setup
-    @stats    = default_stats
+    @map              = LEVELS[@index]
+    @entities         = setup
+    @stats            = default_stats
+    @completed_at     = nil
+    @completion_timer = 180 # frames
   end
 
   def process_inputs

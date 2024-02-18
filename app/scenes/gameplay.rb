@@ -42,7 +42,7 @@ module Scene
       # labels << label("Level #{args.state.level.title}", x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
 
       stats = "%02d   MOVES: %04d   PUSHES: %04d" % [args.state.level.title, args.state.level.stats.moves, args.state.level.stats.pushes]
-      time  = formatted_duration(Time.now - args.state.level.stats.time)
+      time  = formatted_duration((args.state.level.completed_at || Time.now) - args.state.level.stats.time)
 
       labels << label(stats, x: 40, y: args.grid.bottom + 35, size: SIZE_MD, color: BLACK)
       labels << label("TIME: #{time}", x: args.grid.right - 40, y: args.grid.bottom + 35, size: SIZE_MD, color: BLACK, align: ALIGN_RIGHT)

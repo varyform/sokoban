@@ -29,7 +29,6 @@ class Player < Tile
     target = entity_at(direction)
     target.move!(direction) if target.is_a?(Crate)
 
-    return if state.level.won?
     # move to new empty block
     target = entity_at(direction)
     place_on_top_of!(target)
