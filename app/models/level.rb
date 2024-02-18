@@ -27,6 +27,10 @@ class Level
 
       if @completion_timer <= 0
         @index += 1
+        state.setting.level = @index
+
+        GameSetting.save_settings(args)
+
         reset_level!
       end
     end

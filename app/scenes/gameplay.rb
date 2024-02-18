@@ -5,7 +5,7 @@ module Scene
       labels = []
       sprites = []
 
-      args.state.level ||= ::Level.new(args, 0)
+      args.state.level ||= ::Level.new(args, args.state.setting.level&.to_i || 0)
 
       # args.state.current_level ||= 0
 
