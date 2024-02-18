@@ -22,16 +22,20 @@ class Crate < Tile
 
     target = entity_at(direction)
 
-    # puts "Moving Crate to #{target.x} - #{target.y} #{target.class}"
-
-    # play_sfx(args, "crate/moving")
-
     if state.setting.sfx
       audio.delete :crate
       audio[:crate] = { input: "sounds/crate/moving.wav" }
     end
 
     place_on_top_of!(target)
+  end
+
+  def to_sprite
+    temp = super
+
+    temp = temp.merge(a: state.tick_count % 30 < 15 ? 30 : 255) if state.level.finished?
+
+    temp
   end
 
   def sprite
