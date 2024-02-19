@@ -38,7 +38,7 @@ module Scene
       args.outputs.static_solids << { x: 91, y: args.grid.bottom, w: 3, h: 40 }.merge(BLACK)
       args.outputs.static_solids << { x: 308, y: args.grid.bottom, w: 3, h: 40 }.merge(BLACK)
 
-      labels << label(title, x: 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD)
+      # labels << label(title, x: 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD)
       # labels << label("Level #{args.state.level.title}", x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
 
       stats = "%02d   MOVES: %04d   PUSHES: %04d" % [args.state.level.title, args.state.level.stats.moves, args.state.level.stats.pushes]
@@ -50,6 +50,7 @@ module Scene
       # labels << label("#{args.state.level.stats.pushes} ", x: 240, y: args.grid.bottom + 40, size: SIZE_LG, color: BLACK)
 
       args.outputs.labels << labels
+      args.outputs.sprites << { x: 40.from_left, y: 81.from_top, w: 217, h: 41, path: 'sprites/logo.png' }
     end
 
     def pause(args)
