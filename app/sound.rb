@@ -1,8 +1,9 @@
 # play a sound effect. the file in sounds/ must match the key name. ex:
 # play_sfx(args, :select)
-def play_sfx(args, key)
+def play_sfx(args, key, exclusive: false)
   if args.state.setting.sfx
-    args.outputs.sounds << "sounds/#{key}.wav"
+    args.audio.delete key if exclusive
+    args.audio[key] = { input: "sounds/#{key}.wav" }
   end
 end
 
