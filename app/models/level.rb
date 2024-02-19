@@ -55,7 +55,6 @@ class Level
     @stats                = default_stats
     @completed_at         = nil
     @completion_timer     = 180 # frames
-    outputs.static_sprites.clear # remove walls from previous level
   end
 
   def process_inputs
@@ -73,10 +72,7 @@ class Level
   end
 
   def render
-    # static, dynamic = @entities.partition { |e|}
-    static, dynamic = @entities.sort_by(&:weight).map(&:to_sprite).partition { |e| e[:static] }
-    outputs.static_sprites << static unless outputs.static_sprites.any?
-    outputs.sprites << dynamic
+    outputs.sprites << @entities.sort_by(&:weight).map(&:to_sprite)
   end
 
   private

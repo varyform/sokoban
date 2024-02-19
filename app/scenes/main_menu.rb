@@ -2,7 +2,7 @@ module Scene
   class << self
     # what's displayed when your game starts
     def tick_main_menu(args)
-      draw_bg(args, DARK_PURPLE)
+      draw_bg(args, r: 30, g: 18, b: 39)
       options = [
         {
           key: :start,
@@ -28,9 +28,9 @@ module Scene
         "v#{version}",
         x: 32.from_left, y: 32.from_top,
         size: SIZE_XS, align: ALIGN_LEFT)
-      labels << label(
-        title.upcase, x: args.grid.w / 2, y: args.grid.top - 100,
-        size: SIZE_LG, align: ALIGN_CENTER, font: FONT_BOLD)
+      # labels << label(
+      #   title.upcase, x: args.grid.w / 2, y: args.grid.top - 100,
+      #   size: SIZE_LG, align: ALIGN_CENTER, font: FONT_BOLD)
       labels << label(
         "#{text(:made_by)} #{dev_title}",
         x: args.grid.left + 24, y: 48,
@@ -45,6 +45,7 @@ module Scene
         size: SIZE_XS, align: ALIGN_RIGHT)
 
       args.outputs.labels << labels
+      args.outputs.sprites << { x: args.grid.w / 2 - 217, y: 220.from_top, w: 434, h: 82, path: 'sprites/logo.png' }
     end
   end
 end
