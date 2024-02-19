@@ -19,6 +19,7 @@ TEXT = {
   return_to_main_menu: "Return to Main Menu",
   settings: "Settings",
   sfx: "Sound Effects",
+  continue: "Continue",
   start: "Start",
 }
 

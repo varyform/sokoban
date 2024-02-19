@@ -5,7 +5,10 @@ module Scene
       labels = []
       sprites = []
 
-      args.state.level ||= ::Level.new(args, args.state.setting.level&.to_i || 0)
+      saved_level = args.state.setting.level
+
+      saved_level = saved_level.is_a?(String) ? saved_level.to_i : nil
+      args.state.level ||= ::Level.new(args, saved_level || 0)
 
       # args.state.current_level ||= 0
 
@@ -34,9 +37,9 @@ module Scene
       tick_pause_button(args, sprites) if mobile?
 
       draw_bg(args, BLACK)
-      args.outputs.static_solids << { x: args.grid.left, y: args.grid.bottom, w: args.grid.w, h: 40, r: 200, g: 200, b: 200 }
-      args.outputs.static_solids << { x: 91, y: args.grid.bottom, w: 3, h: 40 }.merge(BLACK)
-      args.outputs.static_solids << { x: 308, y: args.grid.bottom, w: 3, h: 40 }.merge(BLACK)
+      args.outputs.solids << { x: args.grid.left, y: args.grid.bottom, w: args.grid.w, h: 40, r: 200, g: 200, b: 200 }
+      args.outputs.solids << { x: 91, y: args.grid.bottom, w: 3, h: 40 }.merge(BLACK)
+      args.outputs.solids << { x: 308, y: args.grid.bottom, w: 3, h: 40 }.merge(BLACK)
 
       # labels << label(title, x: 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD)
       # labels << label("Level #{args.state.level.title}", x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
