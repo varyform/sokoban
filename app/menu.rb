@@ -27,7 +27,7 @@ module Menu
 
         label = label(
           text,
-          x: args.grid.w / 2 - 100,
+          x: args.grid.w / 2 - 70,
           y: menu_y + (options.length - i * spacer),
           align: ALIGN_LEFT,
           size: SIZE_MD
