@@ -50,11 +50,12 @@ class Level
   end
 
   def reset_level!
-    @map              = LEVELS[@index]
-    @entities         = setup
-    @stats            = default_stats
-    @completed_at     = nil
-    @completion_timer = 180 # frames
+    @map                  = LEVELS[@index]
+    @entities             = setup
+    @stats                = default_stats
+    @completed_at         = nil
+    @completion_timer     = 180 # frames
+    outputs.static_sprites.clear # remove walls from previous level
   end
 
   def process_inputs
@@ -72,7 +73,10 @@ class Level
   end
 
   def render
-    outputs.sprites << @entities.sort_by(&:weight).map(&:to_sprite)
+    # static, dynamic = @entities.partition { |e|}
+    static, dynamic = @entities.sort_by(&:weight).map(&:to_sprite).partition { |e| e[:static] }
+    outputs.static_sprites << static unless outputs.static_sprites.any?
+    outputs.sprites << dynamic
   end
 
   private
