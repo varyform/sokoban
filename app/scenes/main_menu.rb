@@ -6,7 +6,10 @@ module Scene
       options = [
         {
           key: :start,
-          on_select: -> (args) { Scene.switch(args, :gameplay, reset: true) }
+          on_select: -> (args) {
+            args.state.setting.level = 0
+            Scene.switch(args, :gameplay, reset: true)
+          }
         },
         {
           key: :settings,
