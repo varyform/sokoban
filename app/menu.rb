@@ -27,9 +27,9 @@ module Menu
 
         label = label(
           text,
-          x: args.grid.w / 2,
+          x: args.grid.w / 2 - 100,
           y: menu_y + (options.length - i * spacer),
-          align: ALIGN_CENTER,
+          align: ALIGN_LEFT,
           size: SIZE_MD
         )
         label.key = option[:key]
@@ -37,12 +37,13 @@ module Menu
         labels << label
         if menu_state.current_option_i == i
           if !mobile? || (mobile? && args.inputs.controller_one.connected)
-            args.outputs.solids << {
-              x: label.x - (label_size[0] / 1.4) - 24 + (Math.sin(args.state.tick_count / 8) * 4),
-              y: label.y - 22,
-              w: 16,
-              h: 16,
-            }.merge(WHITE)
+            args.outputs.sprites << {
+              x: label.x - 50 + (Math.sin(args.state.tick_count / 8) * 4),
+              y: label.y - 34,
+              w: 36,
+              h: 36,
+              path: 'sprites/gameplay/5.png'
+            }
           end
         end
       end
