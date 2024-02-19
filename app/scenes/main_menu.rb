@@ -14,7 +14,7 @@ module Scene
         },
       ]
 
-      if args.state.setting&.level&.to_i > 0
+      if args.state.setting.level.to_i > 0
         options.unshift({
           key: :continue,
           on_select: -> (args) { Scene.switch(args, :gameplay, reset: false) }

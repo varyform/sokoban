@@ -5,10 +5,7 @@ module Scene
       labels = []
       sprites = []
 
-      saved_level = args.state.setting.level
-
-      saved_level = saved_level.is_a?(String) ? saved_level.to_i : nil
-      args.state.level ||= ::Level.new(args, saved_level || 0)
+      args.state.level ||= ::Level.new(args, args.state.setting.level)
 
       # args.state.current_level ||= 0
 

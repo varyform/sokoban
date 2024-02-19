@@ -4,6 +4,9 @@ def init(args)
   GameSetting.load_settings(args)
   args.state.scene_switch_tick ||= 0
 
+  saved_level = args.state.setting.level
+  args.state.setting.level = saved_level.is_a?(String) ? saved_level.to_i : 0
+
   args.gtk.hide_cursor
 end
 
