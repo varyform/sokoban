@@ -55,13 +55,10 @@ class Player < Tile
       0
     end
 
-    rotation_increment = case [@previous_angle, @angle]
-    when [0, 90], [90, 180], [180, 270], [270, 0]
-      15
-    when [90, 0], [0, 270], [270, 180], [180, 90]
-      -15
-    when [0, 180], [180, 0], [90, 270], [270, 90]
-      30
+    rotation_increment = case @previous_angle.to_i - @angle.to_i
+    when -90, 270 then 15
+    when 90, -270 then -15
+    else 30 # 180
     end
 
     angle = if @angle != @previous_angle
