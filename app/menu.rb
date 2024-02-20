@@ -42,6 +42,8 @@ module Menu
               y: label.y - 34,
               w: 36,
               h: 36,
+              source_w: 36,
+              source_h: 36,
               path: 'sprites/gameplay/5.png'
             }
           end

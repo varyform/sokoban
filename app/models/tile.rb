@@ -62,6 +62,10 @@ class Tile
       y: y * SIZE + SIZE / frames * offset.y + (grid.h - (state.level.height * SIZE)) / 2,
       w: SIZE,
       h: SIZE,
+      source_w: SIZE,
+      source_h: SIZE,
+      source_x: 0,
+      source_y: 0,
       path: sprite
     }
   end
