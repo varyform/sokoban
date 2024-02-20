@@ -57,7 +57,7 @@ class Player < Tile
     end
 
     source_x = if @moving
-      SIZE * Numeric.frame_index(start_at: 0, frame_count: 4, hold_for: 12, repeat: true)
+      SIZE * Numeric.frame_index(start_at: 0, frame_count: 4, hold_for: 8, repeat: true)
     else
       0
     end
