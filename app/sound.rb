@@ -10,13 +10,13 @@ end
 # play the specified music track, the key must correspond to the
 # `sounds/#{key}.ogg` file naming scheme.
 def play_music(args, key)
-  args.audio[:music] = { input: "sounds/#{key}.ogg", looping: true, }
+  args.audio[:music] = { input: "sounds/#{key}", looping: true, }
   set_music_vol(args)
 end
 
 # sets the music vol based on whether or not music is enabled or disabled
 def set_music_vol(args)
-  vol = args.state.setting.music ? 0.8 : 0.0
+  vol = args.state.setting.music ? 0.2 : 0.0
   args.audio[:music]&.gain = vol
 end
 
