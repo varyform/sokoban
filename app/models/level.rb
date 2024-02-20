@@ -8,6 +8,8 @@ class Level
     self.args = args
     @index    = index
 
+    state.level ||= self
+
     reset_level!
   end
 
@@ -55,6 +57,8 @@ class Level
     @stats                = default_stats
     @completed_at         = nil
     @completion_timer     = 180 # frames
+
+    set_default_facing!
   end
 
   def process_inputs
@@ -76,6 +80,23 @@ class Level
   end
 
   private
+
+  def set_default_facing!
+    player = @entities.find { |e| e.is_a?(Player) }
+
+    no_wall_direction = [:left, :right, :up, :down].find { |side| !player.entity_at(side).is_a?(Wall) }
+
+    if no_wall_direction == :up
+      no_wall_direction = :down
+    elsif no_wall_direction == :down
+      no_wall_direction = :up
+    end
+
+    default_angle = player.direction_to_angle(no_wall_direction)
+
+    player.instance_variable_set(:@angle, default_angle)
+    player.instance_variable_set(:@previous_angle, default_angle)
+  end
 
   def height
     @map.size
