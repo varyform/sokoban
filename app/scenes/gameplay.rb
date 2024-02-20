@@ -5,17 +5,7 @@ module Scene
       labels = []
       sprites = []
 
-      args.state.level ||= ::Level.new(args, args.state.setting.level)
-
-      # args.state.current_level ||= 0
-
-      # lvl = LEVELS[args.state.current_level]
-
-      # only check inputs every so often seconds
-      # if args.state.tick_count % 10 == 9
-      #   args.state.current_level -= 1 if up?(args) && args.state.current_level > 0
-      #   args.state.current_level += 1 if down?(args) && args.state.current_level < LEVELS.size - 1
-      # end
+      args.state.level ||= Level.new(args, args.state.setting.level)
 
       args.state.level.tick
 
