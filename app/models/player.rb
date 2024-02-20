@@ -47,4 +47,21 @@ class Player < Tile
   def sprite
     "sprites/gameplay/5.png"
   end
+
+  def to_sprite
+    angle = case @move_direction
+    when :right then 90
+    when :left then 270
+    when :down then 180
+    when :up then 0
+    end
+
+    source_x = if @moving
+      SIZE * Numeric.frame_index(start_at: 0, frame_count: 4, hold_for: 12, repeat: true)
+    else
+      0
+    end
+
+    super.merge!(angle: angle, source_x: source_x)
+  end
 end
