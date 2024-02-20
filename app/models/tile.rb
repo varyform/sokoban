@@ -90,12 +90,28 @@ class Tile
   end
 
   def place_on_top_of!(other)
+    @previous_angle = direction_to_angle(@move_direction)
+
     @move_direction = :right if other.x > @x
     @move_direction = :left if other.x < @x
     @move_direction = :down if other.y > @y
     @move_direction = :up if other.y < @y
 
+    @angle = direction_to_angle(@move_direction)
+
+    @action_frame = state.tick_count
+
     @x = other.x
     @y = other.y
+  end
+
+  def direction_to_angle(direction)
+    case direction
+    when :right then 90
+    when :left then 270
+    when :down then 180
+    when :up then 0
+    else 0 # avoid crash
+    end
   end
 end
