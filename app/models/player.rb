@@ -49,17 +49,26 @@ class Player < Tile
   end
 
   def to_sprite
-    angle = case @move_direction
-    when :right then 90
-    when :left then 270
-    when :down then 180
-    when :up then 0
-    end
-
     source_x = if @moving
       SIZE * Numeric.frame_index(start_at: 0, frame_count: 4, hold_for: 8, repeat: true)
     else
       0
+    end
+
+    rotation_increment = case [@previous_angle, @angle]
+    when [0, 90], [90, 180], [180, 270], [270, 0]
+      15
+    when [90, 0], [0, 270], [270, 180], [180, 90]
+      -15
+    when [0, 180], [180, 0], [90, 270], [270, 90]
+      30
+    end
+
+    angle = if @angle != @previous_angle
+      frame = @action_frame.frame_index(start_at: 0, frame_count: 6, hold_for: 2, repeat: false)
+      frame ? @previous_angle + rotation_increment * frame : @angle
+    else
+      @previous_angle
     end
 
     super.merge!(angle: angle, source_x: source_x)
