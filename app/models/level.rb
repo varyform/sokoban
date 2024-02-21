@@ -58,21 +58,20 @@ class Level
     @completed_at         = nil
     @completion_timer     = 180 # frames
 
-    set_default_facing!
+     player.set_default_facing!
+  end
+
+  def player
+    @entities.find { |e| e.is_a?(Player) }
   end
 
   def process_inputs
-    # only check inputs every so often seconds
-    # if state.tick_count % 10 == 9
-      player = @entities.find { |e| e.is_a?(Player) }
+    player.move!(:up) if up?(args) && player.can_move?(:up)
+    player.move!(:down) if down?(args) && player.can_move?(:down)
+    player.move!(:left) if left?(args) && player.can_move?(:left)
+    player.move!(:right) if right?(args) && player.can_move?(:right)
 
-      player.move!(:up) if up?(args) && player.can_move?(:up)
-      player.move!(:down) if down?(args) && player.can_move?(:down)
-      player.move!(:left) if left?(args) && player.can_move?(:left)
-      player.move!(:right) if right?(args) && player.can_move?(:right)
-
-      reset_level! if inputs.keyboard.key_down.q or inputs.keyboard.key_held.q
-    # end
+    reset_level! if inputs.keyboard.key_down.q or inputs.keyboard.key_held.q
   end
 
   def render
@@ -80,18 +79,6 @@ class Level
   end
 
   private
-
-  def set_default_facing!
-    player = @entities.find { |e| e.is_a?(Player) }
-
-    no_wall_direction = [:left, :right, :up, :down].find { |side| !player.entity_at(side).is_a?(Wall) }
-
-    default_angle = player.direction_to_angle(no_wall_direction)
-
-    player.instance_variable_set(:@move_direction, no_wall_direction)
-    player.instance_variable_set(:@angle, default_angle)
-    player.instance_variable_set(:@previous_angle, default_angle)
-  end
 
   def height
     @map.size
