@@ -3,8 +3,8 @@ class Empty < Tile
     "sprites/gameplay/3.png"
   end
 
-  def can_move?(direction)
-    return false
+  def can_move?(_direction)
+    false
   end
 
   def weight
