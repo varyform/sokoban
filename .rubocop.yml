@@ -1,20 +1,8 @@
-require:
-  - rubocop-performance
-  - rubocop-rails
-  - rubocop-rake
-  - rubocop-rspec
-  #- anycable/rails/compatibility/rubocop
-
 AllCops:
   DisplayCopNames: true
-  Exclude:
-    - 'db/schema.rb'
   NewCops: enable
   # No need for TargetRubyVersion. Rubocop checks for .ruby-version to get it.
   # https://docs.rubocop.org/rubocop/0.85/configuration.html#setting-the-target-ruby-version
-
-Rails:
-  Enabled: true
 
 Style/ClassAndModuleChildren:
   Enabled: false
@@ -71,7 +59,6 @@ Metrics/MethodLength:
 
 Metrics/BlockLength:
   Max: 30
-  IgnoredMethods: [context, describe, feature, scenario, factory, define]
   Exclude:
     - lib/capistrano/tasks/*.rake
 
@@ -106,60 +93,6 @@ Naming/FileName:
   Exclude:
     - "config/**/*"
     - "app/views/**/*"
-
-RSpec/Capybara/FeatureMethods:
-  EnabledMethods: [feature, scenario, xscenario]
-
-RSpec/ExpectActual:
-  Exclude:
-    - spec/routing/**/*_spec.rb
-
-RSpec/MultipleExpectations:
-  Max: 23
-
-RSpec/MultipleMemoizedHelpers:
-  Max: 15
-
-RSpec/ExampleLength:
-  Max: 36
-
-RSpec/NestedGroups:
-  Max: 5
-
-RSpec/LeadingSubject:
-  Enabled: false
-
-RSpec/ContextWording:
-  Enabled: false
-
-RSpec/ExpectChange:
-  Enabled: false
-
-Rails/FilePath:
-  EnforcedStyle: slashes # To override rubocop-rails default prior to 2.4
-
-Rails/SkipsModelValidations:
-  Exclude:
-    - spec/**/*.rb
-
-Rails/ContentTag: # content_tag(:div) is legacy syntax but allow use content_tag when the first argument is a variable, However tag is slower than content_tag
-  Enabled: false
-
-Rails/RakeEnvironment:
-  Exclude:
-    - lib/capistrano/tasks/*.rake
-
-# Per Marynchak's suggestion: http://www.benjaminoakes.com/http/2018/06/12/HTTP-referer-vs-HTTP-referrer-in-Rails-and-other-web-development-projects/
-Rails/RequestReferer:
-  EnforcedStyle: referrer
-
-Rails/UnknownEnv:
-  Environments:
-    - development
-    - test
-    - staging
-    - sandbox
-    - production
 
 Lint/MissingSuper:
   Exclude:
