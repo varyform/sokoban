@@ -23,20 +23,21 @@ class Wall < Tile
 
   def wall_rules
     {
-      []                   => 10,
-      [:up]                => 5,
-      [:down]              => 10,
-      [:left]              => 11,
-      [:right]             => 2,
-      [:right, :up]        => 1,
-      [:right, :down]      => 2,
-      [:left, :right]      => 3,
-      [:left, :down]       => 4,
-      [:up, :down]         => 5,
-      [:left, :up]         => 6,
-      [:left, :up, :down]  => 7,
-      [:right, :up, :down] => 8,
-      [:left, :right, :up] => 9,
+      []                          => 10,
+      [:up]                       => 5,
+      [:down]                     => 10,
+      [:left]                     => 11,
+      [:right]                    => 2,
+      [:right, :up]               => 1,
+      [:right, :down]             => 2,
+      [:left, :right]             => 3,
+      [:left, :down]              => 4,
+      [:up, :down]                => 5,
+      [:left, :up]                => 6,
+      [:left, :up, :down]         => 7,
+      [:right, :up, :down]        => 8,
+      [:left, :right, :up]        => 9,
+      [:left, :right, :up, :down] => 12,
     }
   end
 end
