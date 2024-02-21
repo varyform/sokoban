@@ -1,6 +1,7 @@
 class Player < Tile
   def can_move?(direction)
     return false if @moving
+    return false if state.level.finished?
 
     target = entity_at(direction)
 
