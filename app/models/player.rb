@@ -55,7 +55,7 @@ class Player < Tile
 
   def to_sprite
     source_x = if @moving
-      SIZE * Numeric.frame_index(start_at: 0, frame_count: 4, hold_for: 8, repeat: true)
+      SIZE * Numeric.frame_index(start_at: 0, frame_count: 4, hold_for: 3, repeat: true)
     else
       0
     end
