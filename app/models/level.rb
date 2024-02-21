@@ -3,7 +3,7 @@ class Level
   attr_reader :entities, :stats, :completed_at
 
   def initialize(args, index)
-    raise "Wrong level #{index}" if index < 0 or index > 49
+    index = LEVELS.size - 1 if index > LEVELS.size - 1
 
     self.args = args
     @index    = index
@@ -28,7 +28,7 @@ class Level
       @completion_timer -= 1
 
       if @completion_timer <= 0
-        @index += 1
+        @index += 1 if @index < LEVELS.size - 1
         state.setting.level = @index
 
         GameSetting.save_settings(args)
