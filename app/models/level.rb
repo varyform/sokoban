@@ -86,12 +86,6 @@ class Level
 
     no_wall_direction = [:left, :right, :up, :down].find { |side| !player.entity_at(side).is_a?(Wall) }
 
-    if no_wall_direction == :up
-      no_wall_direction = :down
-    elsif no_wall_direction == :down
-      no_wall_direction = :up
-    end
-
     default_angle = player.direction_to_angle(no_wall_direction)
 
     player.instance_variable_set(:@angle, default_angle)
