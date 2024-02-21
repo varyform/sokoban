@@ -11,6 +11,16 @@ class Player < Tile
     super(direction) || target.is_a?(Empty) || target.is_a?(Target)
   end
 
+  def set_default_facing!
+    no_wall_direction = [:left, :right, :up, :down].find { |side| !entity_at(side).is_a?(Wall) }
+
+    default_angle = direction_to_angle(no_wall_direction)
+
+    @move_direction = no_wall_direction
+    @angle          = default_angle
+    @previous_angle = default_angle
+  end
+
   def weight
     50
   end
