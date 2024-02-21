@@ -88,6 +88,7 @@ class Level
 
     default_angle = player.direction_to_angle(no_wall_direction)
 
+    player.instance_variable_set(:@move_direction, no_wall_direction)
     player.instance_variable_set(:@angle, default_angle)
     player.instance_variable_set(:@previous_angle, default_angle)
   end
