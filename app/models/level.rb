@@ -68,7 +68,7 @@ class Level
     player.move!(:left) if left?(args) && player.can_move?(:left)
     player.move!(:right) if right?(args) && player.can_move?(:right)
 
-    reset_level! if inputs.keyboard.key_down.q or inputs.keyboard.key_held.q
+    reset_level! if inputs.keyboard.key_down.q || inputs.keyboard.key_held.q
   end
 
   def render
