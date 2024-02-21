@@ -106,12 +106,6 @@ class Tile
   end
 
   def direction_to_angle(direction)
-    case direction
-    when :right then 90
-    when :left then 270
-    when :down then 0
-    when :up then 180
-    else 0 # avoid crash
-    end
+    { right: 90, left: 270, down: 0, up: 180 }[direction]
   end
 end
