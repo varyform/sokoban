@@ -82,7 +82,7 @@ class Tile
   end
 
   def entities_at(direction)
-    target_coordinates = { up: [x, y + 1], down: [x, y - 1], left: [x - 1, y], right: [x + 1, y] }[direction]
+    target_coordinates = direction_to_position(direction)
 
     state.level.entities.select { |e| e.position == target_coordinates }
   end
@@ -97,6 +97,15 @@ class Tile
 
   def direction_to_angle(direction)
     { right: 90, left: 270, down: 0, up: 180 }[direction]
+  end
+
+  def direction_to_position(direction)
+    {
+      up:    [x, y + 1],
+      down:  [x, y - 1],
+      left:  [x - 1, y],
+      right: [x + 1, y]
+    }[direction]
   end
 
   def position
