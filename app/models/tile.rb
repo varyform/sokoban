@@ -82,18 +82,13 @@ class Tile
   end
 
   def entities_at(direction)
-    target_coordinates = case direction
-    when :up then { y: @y + 1, x: @x }
-    when :down then { y: @y - 1, x: @x }
-    when :left then { y: @y, x: @x - 1 }
-    when :right then { y: @y, x: @x + 1 }
-    end
+    target_coordinates = { up: [x, y + 1], down: [x, y - 1], left: [x - 1, y], right: [x + 1, y] }[direction]
 
-    state.level.entities.select { |e| e.x == target_coordinates.x && e.y == target_coordinates.y }
+    state.level.entities.select { |e| e.position == target_coordinates }
   end
 
   def any_of_type_in_place?(klass)
-    state.level.entities.any? { |e| e.instance_of?(klass) && e.x == x && e.y == y }
+    state.level.entities.any? { |e| e.instance_of?(klass) && e.position == position }
   end
 
   def place_on_top_of!(other)
