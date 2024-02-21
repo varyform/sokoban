@@ -71,7 +71,7 @@ class Tile
   end
 
   def entity_at(direction)
-    entities_at(direction).sort_by { |e| -e.weight }.first
+    entities_at(direction).max_by(&:weight)
   end
 
   def entities_at(direction)
@@ -86,7 +86,7 @@ class Tile
   end
 
   def any_of_type_in_place?(klass)
-    state.level.entities.any? { |e| e.class == klass && e.x == x && e.y == y }
+    state.level.entities.any? { |e| e.instance_of?(klass) && e.x == x && e.y == y }
   end
 
   def place_on_top_of!(other)

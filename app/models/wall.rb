@@ -4,7 +4,7 @@ class Wall < Tile
   end
 
   def to_sprite
-    super.merge!(static: true, source_x: SIZE * calculate_tile_index)
+    super.merge!(static: true, source_x: SIZE * tile_index)
   end
 
   def weight
@@ -13,8 +13,8 @@ class Wall < Tile
 
   private
 
-  def calculate_tile_index
-    @rule ||= wall_rules.to_a.reverse.find do |rules, _i|
+  def tile_index
+    @tile_index ||= wall_rules.to_a.reverse.find do |rules, _i|
       rules.all? { |direction| entity_at(direction).is_a?(Wall) }
     end.last
   end
