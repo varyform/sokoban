@@ -14,11 +14,9 @@ class Wall < Tile
   private
 
   def calculate_tile_index
-    @rule ||= begin
-      wall_rules.to_a.reverse.find do |rules, _i|
-        rules.all? { |direction| entity_at(direction).is_a?(Wall) }
-      end.last
-    end
+    @rule ||= wall_rules.to_a.reverse.find do |rules, _i|
+      rules.all? { |direction| entity_at(direction).is_a?(Wall) }
+    end.last
   end
 
   def wall_rules
@@ -37,7 +35,7 @@ class Wall < Tile
       [:left, :up, :down]         => 7,
       [:right, :up, :down]        => 8,
       [:left, :right, :up]        => 9,
-      [:left, :right, :up, :down] => 12,
+      [:left, :right, :up, :down] => 12
     }
   end
 end

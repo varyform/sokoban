@@ -65,11 +65,11 @@ class Player < Tile
     else 30 # 180
     end
 
-    angle = if @angle != @previous_angle
-      frame = @action_frame.frame_index(start_at: 0, frame_count: 6, hold_for: 2, repeat: false)
-      frame ? @previous_angle + rotation_increment * frame : @angle
-    else
+    angle = if @angle == @previous_angle
       @previous_angle
+    else
+      frame = @action_frame.frame_index(start_at: 0, frame_count: 6, hold_for: 2, repeat: false)
+      frame ? @previous_angle + (rotation_increment * frame) : @angle
     end
 
     super.merge!(angle: angle, source_x: source_x)

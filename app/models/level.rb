@@ -24,18 +24,18 @@ class Level
 
     @entities.map(&:tick)
 
-    if finished?
-      @completion_timer -= 1
+    return unless finished?
 
-      if @completion_timer <= 0
-        @index += 1 if @index < LEVELS.size - 1
-        state.setting.level = @index
+    @completion_timer -= 1
 
-        GameSetting.save_settings(args)
+    return unless @completion_timer <= 0
 
-        reset_level!
-      end
-    end
+    @index += 1 if @index < LEVELS.size - 1
+    state.setting.level = @index
+
+    GameSetting.save_settings(args)
+
+    reset_level!
   end
 
   def finished?
@@ -58,7 +58,7 @@ class Level
     @completed_at         = nil
     @completion_timer     = 180 # frames
 
-     player.set_default_facing!
+    player.set_default_facing!
   end
 
   def player
@@ -91,19 +91,19 @@ class Level
   def setup
     @map.reverse.map_2d do |y, x, cell|
       case cell
-      when 1 then
+      when 1
         [
           Empty.new(args, x, y),
           Crate.new(args, x, y)
         ]
-      when 2 then
+      when 2
         [
           Target.new(args, x, y),
           Crate.new(args, x, y)
         ]
       when 3 then Empty.new(args, x, y)
       when 4 then Target.new(args, x, y)
-      when 5 then # still should be able to move back to starting position
+      when 5 # still should be able to move back to starting position
         [
           Empty.new(args, x, y),
           Player.new(args, x, y)

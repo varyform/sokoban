@@ -33,7 +33,7 @@ class Tile
     raise "Override"
   end
 
-  def can_move?(direction)
+  def can_move?(_direction)
     # puts "Can move? #{self.class} at [#{x},#{y}] -> #{direction} #{entity_at(direction).class} // #{caller}"
 
     return false if @moving
@@ -41,7 +41,7 @@ class Tile
     false
   end
 
-  def move!(direction)
+  def move!(_direction)
     raise "Override"
   end
 
@@ -58,8 +58,8 @@ class Tile
     end
 
     {
-      x: x * SIZE + SIZE / frames * offset.x + (grid.w - (state.level.width * SIZE)) / 2,
-      y: y * SIZE + SIZE / frames * offset.y + (grid.h - (state.level.height * SIZE)) / 2,
+      x: (x * SIZE) + (SIZE / frames * offset.x) + ((grid.w - (state.level.width * SIZE)) / 2),
+      y: (y * SIZE) + (SIZE / frames * offset.y) + ((grid.h - (state.level.height * SIZE)) / 2),
       w: SIZE,
       h: SIZE,
       source_w: SIZE,
