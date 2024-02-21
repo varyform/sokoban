@@ -86,7 +86,7 @@ class Level
   end
 
   def setup
-    @map.reverse.map_2d do |y, x, cell|
+    @map.map_2d do |y, x, cell|
       case cell
       when 1
         [
