@@ -16,18 +16,16 @@ class Crate < Tile
   end
 
   def move!(direction)
-    @moving = frames
+    super
 
     state.level.stats.pushes += 1
-
-    target = entity_at(direction)
 
     if state.setting.sfx
       audio.delete :crate
       audio[:crate] = { input: "sounds/crate/moving.wav" }
     end
 
-    place_on_top_of!(target)
+    @move_to = entity_at(direction).position
   end
 
   def to_sprite
