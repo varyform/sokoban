@@ -16,8 +16,6 @@ class Crate < Tile
   end
 
   def move!(direction)
-    super
-
     @moving = frames
 
     state.level.stats.pushes += 1

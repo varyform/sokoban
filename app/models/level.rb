@@ -79,10 +79,19 @@ class Level
 
   def render
     outputs.sprites << @entities.sort_by(&:weight).map(&:to_sprite)
+
+    outputs.labels << @entities.select { |e| e.is_a?(Crate) }.map do |e|
+      x1 = e.x * 36 + (grid.w - (self.width * 36)) / 2
+      y1 = e.y * 36 + (grid.h - (self.height * 36)) / 2
+
+      label("#{e.x}, #{e.y}", x: x1+ 2, y: y1 + 18, size: 0, color: TRUE_BLACK)
+    end
   end
 
   def undo_last_move!
-    @entities.map(&:undo_last_move!)
+    player = @entities.find { |e| e.is_a?(Player) }
+
+    player.undo_last_move!
   end
 
   private

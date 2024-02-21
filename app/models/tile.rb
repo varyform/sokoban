@@ -42,21 +42,6 @@ class Tile
     false
   end
 
-  def move!(direction)
-    @moves << [[@x, @y], opposite_direction(direction)]
-  end
-
-  def undo_last_move!
-    last_move = @moves.pop
-
-    return unless last_move
-    puts [self.class, last_move]
-
-    @moving = frames
-
-    place_on_top_of!(entity_at(last_move.last)) if last_move.last
-  end
-
   def moves?
     @moves.any?
   end

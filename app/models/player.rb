@@ -20,20 +20,53 @@ class Player < Tile
   end
 
   def move!(direction)
-    super
+    # super
 
     @moving = frames
+    move = []
 
     state.level.stats.moves += 1
 
     play_step
 
     target = entity_at(direction)
-    target.move!(direction) if target.is_a?(Crate)
+    if target.is_a?(Crate)
+      move << [target, opposite_direction(direction)]
+
+      target.move!(direction)
+    end
+
+    move << [self, opposite_direction(direction)]
 
     # move to new empty block
     target = entity_at(direction)
     place_on_top_of!(target)
+
+    @moves << move
+
+    move.each do |x, direction|
+      puts "#{x.class} moved from #{x.x}, #{x.y} -> #{opposite_direction(direction)}"
+    end
+  end
+
+  def undo_last_move!
+    return if @moving || @moves.none?
+
+    state.level.stats.moves -= 1
+
+    lm = @moves.pop
+
+    lm.each do |e, direction|
+      puts "#{e.class} returned to #{e.x}, #{e.y} <- #{direction}"
+
+      state.level.stats.pushes -= 1 if e.is_a?(Crate)
+      e.moving = e.frames
+      target = self #entity_at(direction)
+      puts "#{e.class} [#{e.x}, #{e.y}] will be placed on top of #{target.class} [#{target.x}, #{target.y}]"
+      e.place_on_top_of!(target)
+    end
+
+    puts "*"
   end
 
   def play_step
