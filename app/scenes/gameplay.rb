@@ -31,7 +31,7 @@ module Scene
       # labels << label(title, x: 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD)
       # labels << label("Level #{args.state.level.title}", x: args.grid.w - 40, y: args.grid.top - 40, size: SIZE_LG, font: FONT_BOLD, align: ALIGN_RIGHT)
 
-      stats = "%02d   MOVES: %04d   PUSHES: %04d" % [args.state.level.title, args.state.level.stats.moves, args.state.level.stats.pushes]
+      stats = "%<level>02d   MOVES: %<moves>04d   PUSHES: %<pushes>04d" % { level: args.state.level.title, moves: args.state.level.stats.moves, pushes: args.state.level.stats.pushes }
       time  = formatted_duration((args.state.level.completed_at || Time.now) - args.state.level.stats.time)
 
       labels << label(stats, x: 40, y: args.grid.bottom + 35, size: SIZE_MD, color: BLACK)
@@ -50,7 +50,8 @@ module Scene
 
     def pause(args)
       play_sfx(args, :select)
-      return Scene.switch(args, :paused, reset: true)
+
+      Scene.switch(args, :paused, reset: true)
     end
 
     def tick_pause_button(args, sprites)
@@ -59,17 +60,18 @@ module Scene
         y: 72.from_top,
         w: 52,
         h: 52,
-        path: Sprite.for(:pause),
+        path: Sprite.for(:pause)
       }
+
       pause_rect = pause_button.dup
       pause_padding = 12
       pause_rect.x -= pause_padding
       pause_rect.y -= pause_padding
       pause_rect.w += pause_padding * 2
       pause_rect.h += pause_padding * 2
-      if args.inputs.mouse.down && args.inputs.mouse.inside_rect?(pause_rect)
-        return pause(args)
-      end
+
+      return pause(args) if args.inputs.mouse.down && args.inputs.mouse.inside_rect?(pause_rect)
+
       sprites << pause_button
     end
   end
