@@ -50,8 +50,8 @@ class Tile
       case @move_direction
       when :left then { x: @moving, y: 0 }
       when :right then { x: -@moving, y: 0 }
-      when :down then { x: 0, y: -@moving }
-      when :up then { x: 0, y: @moving }
+      when :up then { x: 0, y: -@moving }
+      when :down then { x: 0, y: @moving }
       end
     else
       { x: 0, y: 0 }
@@ -94,8 +94,8 @@ class Tile
 
     @move_direction = :right if other.x > @x
     @move_direction = :left if other.x < @x
-    @move_direction = :down if other.y > @y
-    @move_direction = :up if other.y < @y
+    @move_direction = :up if other.y > @y
+    @move_direction = :down if other.y < @y
 
     @angle = direction_to_angle(@move_direction)
 
@@ -109,8 +109,8 @@ class Tile
     case direction
     when :right then 90
     when :left then 270
-    when :down then 180
-    when :up then 0
+    when :down then 0
+    when :up then 180
     else 0 # avoid crash
     end
   end
