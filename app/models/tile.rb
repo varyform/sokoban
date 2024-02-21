@@ -47,8 +47,9 @@ class Tile
     false
   end
 
-  def move!(_direction)
-    raise "Override"
+  def move!(direction)
+    @moving         = frames
+    @move_direction = direction
   end
 
   def to_sprite
@@ -96,21 +97,14 @@ class Tile
   end
 
   def place_on_top_of!(other)
-    @previous_angle = direction_to_angle(@move_direction)
-
-    @move_direction = :right if other.x > @x
-    @move_direction = :left if other.x < @x
-    @move_direction = :up if other.y > @y
-    @move_direction = :down if other.y < @y
-
-    @angle = direction_to_angle(@move_direction)
-
-    @action_frame = state.tick_count
-
     @move_to = [other.x, other.y]
   end
 
   def direction_to_angle(direction)
     { right: 90, left: 270, down: 0, up: 180 }[direction]
+  end
+
+  def position
+    [x, y]
   end
 end

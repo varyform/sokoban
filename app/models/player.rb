@@ -31,7 +31,12 @@ class Player < Tile
   end
 
   def move!(direction)
-    @moving = frames
+    @previous_angle = direction_to_angle(@move_direction)
+
+    super
+
+    @angle        = direction_to_angle(@move_direction)
+    @action_frame = state.tick_count
 
     state.level.stats.moves += 1
 
@@ -40,7 +45,8 @@ class Player < Tile
     target = entity_at(direction)
     target.move!(direction) if target.is_a?(Crate)
 
-    place_on_top_of!(target)
+    # place_on_top_of!(target)
+    @move_to = target.position
   end
 
   def play_step
