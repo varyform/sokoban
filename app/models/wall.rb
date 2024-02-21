@@ -23,6 +23,7 @@ class Wall < Tile
 
   def wall_rules
     {
+      []                   => 10,
       [:up]                => 5,
       [:down]              => 10,
       [:left]              => 11,
