@@ -61,6 +61,10 @@ class Level
     set_default_facing!
   end
 
+  def any_moves?
+    @entities.any?(&:moves?)
+  end
+
   def process_inputs
     # only check inputs every so often seconds
     # if state.tick_count % 10 == 9
@@ -72,11 +76,16 @@ class Level
       player.move!(:right) if right?(args) && player.can_move?(:right)
 
       reset_level! if inputs.keyboard.key_down.q or inputs.keyboard.key_held.q
+      undo_last_move! if inputs.keyboard.key_down.z or inputs.keyboard.key_held.z
     # end
   end
 
   def render
     outputs.sprites << @entities.sort_by(&:weight).map(&:to_sprite)
+  end
+
+  def undo_last_move!
+    @entities.map(&:undo_last_move!)
   end
 
   private

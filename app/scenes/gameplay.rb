@@ -41,6 +41,12 @@ module Scene
         x: args.grid.right - 40, y: 50.from_top,
         size: SIZE_XS, align: ALIGN_RIGHT, color: { r: 60, g: 60, b: 60 })
 
+      if args.state.level.any_moves?
+        labels << label('Z - undo last move',
+          x: args.grid.right - 40, y: 80.from_top,
+          size: SIZE_XS, align: ALIGN_RIGHT, color: { r: 60, g: 60, b: 60 })
+      end
+
       # labels << label("#{args.state.level.stats.moves} ", x: 140, y: args.grid.bottom + 40, size: SIZE_LG, color: BLACK)
       # labels << label("#{args.state.level.stats.pushes} ", x: 240, y: args.grid.bottom + 40, size: SIZE_LG, color: BLACK)
 

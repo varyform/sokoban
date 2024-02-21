@@ -11,8 +11,9 @@ class Tile
     @x = x
     @y = y
 
-    @moving = false
+    @moving         = false
     @move_direction = nil
+    @moves          = []
   end
 
   def tick
@@ -42,7 +43,19 @@ class Tile
   end
 
   def move!(direction)
-    raise "Override"
+    @moves << [[@x, @y], target_coordinates(direction).values]
+  end
+
+  def undo_last_move!
+    last_move = @moves.pop
+
+    return unless last_move
+
+    @x, @y = last_move.first
+  end
+
+  def moves?
+    @moves.any?
   end
 
   def to_sprite
@@ -75,14 +88,18 @@ class Tile
   end
 
   def entities_at(direction)
-    target_coordinates = case direction
+    coords = target_coordinates(direction)
+
+    state.level.entities.select { |e| e.x == coords.x && e.y == coords.y }
+  end
+
+  def target_coordinates(direction)
+    case direction
     when :up then { y: @y + 1, x: @x }
     when :down then { y: @y - 1, x: @x }
     when :left then { y: @y, x: @x - 1 }
     when :right then { y: @y, x: @x + 1 }
     end
-
-    state.level.entities.select { |e| e.x == target_coordinates.x && e.y == target_coordinates.y }
   end
 
   def any_of_type_in_place?(klass)

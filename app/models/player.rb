@@ -20,6 +20,8 @@ class Player < Tile
   end
 
   def move!(direction)
+    super
+
     @moving = frames
 
     state.level.stats.moves += 1
