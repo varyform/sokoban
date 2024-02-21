@@ -45,13 +45,7 @@ class Player < Tile
   end
 
   def play_step
-    # make sure sound is deleted so it can play for every step
-    if state.setting.sfx
-      step = random(1, 8)
-      audio.delete :step
-      audio[:step] = { input: "sounds/steps/#{step}.wav" }
-    end
-    # play_sfx(args, "steps/#{step}")
+    play_sfx(args, "steps/#{random(1, 8)}", exclusive: true)
   end
 
   def sprite
