@@ -18,7 +18,13 @@ class Tile
   def tick
     @moving -= 1 if @moving
 
-    @moving = false if @moving && @moving <= 0
+    return unless @moving && @moving <= 0
+
+    @moving = false
+
+    @x, @y = *@move_to
+
+    @move_to = nil
   end
 
   def weight
@@ -58,8 +64,8 @@ class Tile
     end
 
     {
-      x: (x * SIZE) + (SIZE / frames * offset.x) + ((grid.w - (state.level.width * SIZE)) / 2),
-      y: (y * SIZE) + (SIZE / frames * offset.y) + ((grid.h - (state.level.height * SIZE)) / 2),
+      x: ((@move_to&.first || x) * SIZE) + (SIZE / frames * offset.x) + ((grid.w - (state.level.width * SIZE)) / 2),
+      y: ((@move_to&.second || y) * SIZE) + (SIZE / frames * offset.y) + ((grid.h - (state.level.height * SIZE)) / 2),
       w: SIZE,
       h: SIZE,
       source_w: SIZE,
@@ -101,8 +107,7 @@ class Tile
 
     @action_frame = state.tick_count
 
-    @x = other.x
-    @y = other.y
+    @move_to = [other.x, other.y]
   end
 
   def direction_to_angle(direction)
