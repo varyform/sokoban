@@ -3,7 +3,7 @@ module Scene
     # reachable via main menu or pause menu, allows for configuring the game
     # for the player's preferences.
     def tick_settings(args)
-      draw_bg(args, DARK_GREEN)
+      draw_bg(args, r: 30, g: 18, b: 39)
 
       options = [
         {
