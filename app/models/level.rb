@@ -25,10 +25,7 @@ class Level
     @entities.map(&:tick)
 
     return unless finished?
-
-    @completion_timer -= 1
-
-    return unless @completion_timer <= 0
+    return unless (@completion_timer -= 1) <= 0
 
     @index += 1 if @index < LEVELS.size - 1
     state.setting.level = @index
