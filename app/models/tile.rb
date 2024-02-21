@@ -43,15 +43,18 @@ class Tile
   end
 
   def move!(direction)
-    @moves << [[@x, @y], target_coordinates(direction).values]
+    @moves << [[@x, @y], opposite_direction(direction)]
   end
 
   def undo_last_move!
     last_move = @moves.pop
 
     return unless last_move
+    puts [self.class, last_move]
 
-    @x, @y = last_move.first
+    @moving = frames
+
+    place_on_top_of!(entity_at(last_move.last)) if last_move.last
   end
 
   def moves?
@@ -99,6 +102,15 @@ class Tile
     when :down then { y: @y - 1, x: @x }
     when :left then { y: @y, x: @x - 1 }
     when :right then { y: @y, x: @x + 1 }
+    end
+  end
+
+  def opposite_direction(direction)
+    case direction
+    when :up then :down
+    when :down then :up
+    when :left then :right
+    when :right then :left
     end
   end
 

@@ -66,18 +66,15 @@ class Level
   end
 
   def process_inputs
-    # only check inputs every so often seconds
-    # if state.tick_count % 10 == 9
-      player = @entities.find { |e| e.is_a?(Player) }
+    player = @entities.find { |e| e.is_a?(Player) }
 
-      player.move!(:up) if up?(args) && player.can_move?(:up)
-      player.move!(:down) if down?(args) && player.can_move?(:down)
-      player.move!(:left) if left?(args) && player.can_move?(:left)
-      player.move!(:right) if right?(args) && player.can_move?(:right)
+    player.move!(:up) if up?(args) && player.can_move?(:up)
+    player.move!(:down) if down?(args) && player.can_move?(:down)
+    player.move!(:left) if left?(args) && player.can_move?(:left)
+    player.move!(:right) if right?(args) && player.can_move?(:right)
 
-      reset_level! if inputs.keyboard.key_down.q or inputs.keyboard.key_held.q
-      undo_last_move! if inputs.keyboard.key_down.z or inputs.keyboard.key_held.z
-    # end
+    reset_level! if inputs.keyboard.key_down.q or inputs.keyboard.key_held.q
+    undo_last_move! if inputs.keyboard.key_down.z or inputs.keyboard.key_held.z
   end
 
   def render
