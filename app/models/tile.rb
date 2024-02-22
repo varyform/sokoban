@@ -1,5 +1,10 @@
 class Tile
+  include Base
+
   SIZE = 36
+
+  frames SIZE
+  weight 0
 
   attr_gtk
 
@@ -25,18 +30,6 @@ class Tile
     @x, @y = *@move_to
 
     @move_to = nil
-  end
-
-  def weight
-    0
-  end
-
-  def frames
-    SIZE # move instantly
-  end
-
-  def sprite
-    raise "Override"
   end
 
   def can_move?(_direction)

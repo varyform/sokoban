@@ -1,14 +1,9 @@
 class Wall < Tile
-  def sprite
-    "sprites/gameplay/7.png"
-  end
+  weight 20
+  sprite "gameplay/7.png"
 
   def to_sprite
     super.merge!(static: true, source_x: SIZE * tile_index)
-  end
-
-  def weight
-    20
   end
 
   private

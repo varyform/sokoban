@@ -1,4 +1,9 @@
 class Player < Tile
+  frames 12
+  weight 50
+
+  sprite "gameplay/5.png"
+
   def can_move?(direction)
     return false if @moving
     return false if state.level.finished?
@@ -22,14 +27,6 @@ class Player < Tile
     @previous_angle = default_angle
   end
 
-  def weight
-    50
-  end
-
-  def frames
-    12
-  end
-
   def move!(direction)
     @previous_angle = direction_to_angle(@move_direction)
 
@@ -51,10 +48,6 @@ class Player < Tile
 
   def play_step
     play_sfx(args, "steps/#{random(1, 8)}", exclusive: true)
-  end
-
-  def sprite
-    "sprites/gameplay/5.png"
   end
 
   def to_sprite

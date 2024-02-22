@@ -1,29 +1,32 @@
-require "app/input.rb"
-require "app/sprite.rb"
-require "app/util.rb"
+require 'lib/concern'
+require 'app/concerns/index'
 
-require "app/constants.rb"
-require "app/menu.rb"
-require "app/scene.rb"
-require "app/game_setting.rb"
-require "app/sound.rb"
-require "app/text.rb"
+require "app/input"
+require "app/sprite"
+require "app/util"
 
-require "app/scenes/gameplay.rb"
-require "app/scenes/main_menu.rb"
-require "app/scenes/paused.rb"
-require "app/scenes/settings.rb"
+require "app/constants"
+require "app/menu"
+require "app/scene"
+require "app/game_setting"
+require "app/sound"
+require "app/text"
 
-require "data/levels.rb"
+require "app/scenes/gameplay"
+require "app/scenes/main_menu"
+require "app/scenes/paused"
+require "app/scenes/settings"
 
-require "app/models/level.rb"
-require "app/models/tile.rb"
-require "app/models/empty.rb"
-require "app/models/player.rb"
-require "app/models/target.rb"
-require "app/models/crate.rb"
-require "app/models/wall.rb"
+require "data/levels"
+
+require "app/models/level"
+require "app/models/tile"
+require "app/models/empty"
+require "app/models/player"
+require "app/models/target"
+require "app/models/crate"
+require "app/models/wall"
 
 # NOTE: add all requires above this
 
-require "app/tick.rb"
+require "app/tick"
