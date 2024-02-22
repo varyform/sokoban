@@ -1,5 +1,5 @@
 require 'lib/concern'
-require 'app/concerns/index'
+require 'app/concerns/base'
 
 require "app/input"
 require "app/sprite"
