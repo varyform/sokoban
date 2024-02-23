@@ -20,9 +20,10 @@ class Tile
 
     return unless @moving && @moving <= 0
 
-    @moving = false
-
     @x, @y = *@move_to
+
+    @moving = false
+    @pushing = false
 
     @move_to = nil
   end
@@ -49,6 +50,7 @@ class Tile
 
   def move!(direction)
     @moving         = frames
+    @moving_frame   = state.tick_count
     @move_direction = direction
   end
 

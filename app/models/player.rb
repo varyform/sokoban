@@ -5,8 +5,6 @@ class Player < Tile
 
     target = entity_at(direction)
 
-    # puts "#{target.class}"
-
     return target.can_move?(direction) if target.is_a?(Crate)
 
     super(direction) || target.is_a?(Empty) || target.is_a?(Target)
@@ -30,6 +28,13 @@ class Player < Tile
     12
   end
 
+  def process_inputs
+    move!(:up) if up?(args) && can_move?(:up)
+    move!(:down) if down?(args) && can_move?(:down)
+    move!(:left) if left?(args) && can_move?(:left)
+    move!(:right) if right?(args) && can_move?(:right)
+  end
+
   def move!(direction)
     @previous_angle = direction_to_angle(@move_direction)
 
@@ -43,7 +48,10 @@ class Player < Tile
     play_step
 
     target = entity_at(direction)
-    target.move!(direction) if target.is_a?(Crate)
+    if target.is_a?(Crate)
+      @pushing = true
+      target.move!(direction)
+    end
 
     # place_on_top_of!(target)
     @move_to = target.position
@@ -54,12 +62,12 @@ class Player < Tile
   end
 
   def sprite
-    "sprites/gameplay/5.png"
+    @pushing ? "sprites/gameplay/5-1.png" : "sprites/gameplay/5.png"
   end
 
   def to_sprite
     source_x = if @moving
-      SIZE * Numeric.frame_index(start_at: 0, frame_count: 4, hold_for: 3, repeat: true)
+      SIZE * @moving_frame.frame_index(start_at: 0, frame_count: 4, repeat_index: 0, hold_for: 3, repeat: true)
     else
       0
     end
