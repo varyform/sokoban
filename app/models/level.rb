@@ -18,12 +18,16 @@ class Level
   end
 
   def tick
-    render
-
     process_inputs
 
-    @entities.map(&:tick)
+    update
 
+    render
+
+    @entities.map(&:tick)
+  end
+
+  def update
     return unless finished?
     return unless (@completion_timer -= 1) <= 0
 
@@ -63,10 +67,7 @@ class Level
   end
 
   def process_inputs
-    player.move!(:up) if up?(args) && player.can_move?(:up)
-    player.move!(:down) if down?(args) && player.can_move?(:down)
-    player.move!(:left) if left?(args) && player.can_move?(:left)
-    player.move!(:right) if right?(args) && player.can_move?(:right)
+    player.process_inputs
 
     reset_level! if inputs.keyboard.key_down.q || inputs.keyboard.key_held.q
   end
