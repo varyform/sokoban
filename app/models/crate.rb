@@ -20,10 +20,7 @@ class Crate < Tile
 
     state.level.stats.pushes += 1
 
-    if state.setting.sfx
-      audio.delete :crate
-      audio[:crate] = { input: "sounds/crate/moving.wav" }
-    end
+    play_sfx(args, "crate/moving", exclusive: true)
 
     @move_to = entity_at(direction).position
   end
