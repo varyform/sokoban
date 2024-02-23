@@ -7,6 +7,8 @@ def init(args)
   saved_level = args.state.setting.level
   args.state.setting.level = saved_level.is_a?(String) ? saved_level.to_i : 0
 
+  args.state.highscores = args.gtk.parse_json_file("highscores.json") || {}
+
   play_music(args, "background.wav")
 
   args.gtk.hide_cursor
