@@ -28,6 +28,10 @@ class Player < Tile
     12
   end
 
+  def can_undo?
+    @moves.any?
+  end
+
   def process_inputs
     move!(:up) if up?(args) && can_move?(:up)
     move!(:down) if down?(args) && can_move?(:down)
