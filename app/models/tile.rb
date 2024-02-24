@@ -29,6 +29,8 @@ class Tile
 
     if @undoing && !@moving
       @moves.delete(@undoing)
+      state.level.reset_level! if @moves.empty?
+
       @undoing = false
     end
 
