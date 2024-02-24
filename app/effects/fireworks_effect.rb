@@ -26,6 +26,7 @@ module FireworksEffect
       particle.x += 1.5 * (Math.cos(particle.dir * DEG2RAD) - 0) / DISSOLVE_SPEED
       particle.y += 1.5 * (Math.sin(particle.dir * DEG2RAD) - 0) / DISSOLVE_SPEED
       particle.angle += particle.dir < 180 ? -0.5 : 0.5
+      # particle.angle += [-5, 5].sample
       particle.h += 0.3 / DISSOLVE_SPEED
       particle.w += 0.3 / DISSOLVE_SPEED
       particle.a -= DISSOLVE_SPEED
