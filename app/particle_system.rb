@@ -37,7 +37,7 @@ module ParticleSystem
     end
 
     def emit?(sys)
-      true if sys.duration.nil?
+      # true if sys.duration.nil?
       sys.duration.positive?
     end
 
