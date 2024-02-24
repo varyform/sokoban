@@ -11,8 +11,9 @@ class Tile
     @x = x
     @y = y
 
-    @moving = false
+    @moving         = false
     @move_direction = nil
+    @moves          = {}
   end
 
   def tick
@@ -22,8 +23,15 @@ class Tile
 
     @x, @y = *@move_to
 
-    @moving = false
+    @moving  = false
     @pushing = false
+
+    if @undoing && !@moving
+      @moves.delete(@undoing)
+      @undoing = false
+
+      puts "Move popped!"
+    end
 
     @move_to = nil
   end
@@ -48,10 +56,22 @@ class Tile
     false
   end
 
+  def undo_move!
+    @undoing, last_move = *@moves.to_a.last
+
+    puts "Undoing: #{last_move} at #{@undoing} (#{self.class.name})"
+
+    @undoing
+  end
+
   def move!(direction)
     @moving         = frames
     @moving_frame   = state.tick_count
     @move_direction = direction
+
+    @moves[state.tick_count] = direction unless @undoing
+
+    puts "#{self.class.name}: #{@moves}"
   end
 
   def to_sprite
@@ -99,6 +119,10 @@ class Tile
 
   def direction_to_angle(direction)
     { right: 90, left: 270, down: 0, up: 180 }[direction]
+  end
+
+  def opposite_direction(direction)
+    { left: :right, down: :up, up: :down, right: :left }[direction]
   end
 
   def direction_to_position(direction)
