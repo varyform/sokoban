@@ -28,8 +28,6 @@ class Tile
     @pushing = false
 
     if @undoing && !@moving
-      puts "Move deleted #{@undoing}"
-
       @moves.delete(@undoing)
       @undoing = false
     end
