@@ -38,8 +38,11 @@ class Player < Tile
     move!(:left) if left?(args) && can_move?(:left)
     move!(:right) if right?(args) && can_move?(:right)
 
-    reset_level! if inputs.keyboard.key_down.q || inputs.keyboard.key_held.q
-    undo_move! if @moves.any? && !@moving && !@undoing && (inputs.keyboard.key_down.z || inputs.keyboard.key_held.z)
+    state.level.reset_level! if inputs.keyboard.key_down.q || inputs.keyboard.key_held.q ||
+                                (inputs.controller_one.connected && inputs.controller_one.key_down.l1)
+
+    undo_move! if @moves.any? && !@moving && !@undoing && (inputs.keyboard.key_down.z || inputs.keyboard.key_held.z ||
+                  (inputs.controller_one.connected && (inputs.controller_one.key_down.y || inputs.controller_one.key_held.y)))
   end
 
   def undo_move!

@@ -37,11 +37,11 @@ module Scene
       labels << label(stats, x: 40, y: args.grid.bottom + 35, size: SIZE_MD, color: BLACK)
       labels << label("TIME: #{time}", x: args.grid.right - 40, y: args.grid.bottom + 35, size: SIZE_MD, color: BLACK, align: ALIGN_RIGHT)
 
-      labels << label('Q - restart level',
-                      x: args.grid.right - 40, y: 50.from_top,
-                      size: SIZE_XS, align: ALIGN_RIGHT, color: { r: 60, g: 60, b: 60 })
-
       if args.state.level.player.can_undo?
+        labels << label('Q - restart level',
+                        x: args.grid.right - 40, y: 50.from_top,
+                        size: SIZE_XS, align: ALIGN_RIGHT, color: { r: 60, g: 60, b: 60 })
+
         labels << label('Z - undo last move',
                         x: args.grid.right - 40, y: 80.from_top,
                         size: SIZE_XS, align: ALIGN_RIGHT, color: { r: 60, g: 60, b: 60 })
