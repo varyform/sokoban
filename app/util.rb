@@ -181,3 +181,11 @@ def formatted_duration(total_seconds)
     t.round.to_s.rjust(2,'0')
   end.join(':')
 end
+
+def key_or_button(args, key, button)
+  if args.inputs.controller_one.connected
+    button
+  else
+    key
+  end
+end
