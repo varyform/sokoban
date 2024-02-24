@@ -35,20 +35,17 @@ class Player < Tile
     move!(:right) if right?(args) && can_move?(:right)
 
     reset_level! if inputs.keyboard.key_down.q || inputs.keyboard.key_held.q
-    undo_move! if @moves.any? && !@undoing && (inputs.keyboard.key_down.z || inputs.keyboard.key_held.z)
+    undo_move! if @moves.any? && !@moving && !@undoing && (inputs.keyboard.key_down.z || inputs.keyboard.key_held.z)
   end
 
   def undo_move!
-    # last_tick = super()
-    # puts "LastTick: #{last_tick}"
-    # puts "Moves: #{@moves}"
-    last_move = @moves[super]
-    # puts "Moves: #{@moves.join(',')}"
+    @undoing, last_move = *@moves.to_a.last
 
-    puts ">>>>>>>>>> #{last_move}"
+    return unless last_move
 
     move!(opposite_direction(last_move))
-    state.level.entities.select { |e| e.is_a?(Crate) }.each(&:undo_move!)
+
+    state.level.entities.select { |e| e.is_a?(Crate) }.each { |e| e.undo_move!(@undoing) }
   end
 
   def move!(direction)
@@ -98,10 +95,12 @@ class Player < Tile
     else 30 # 180
     end
 
+    rotation_increment = -rotation_increment if @undoing
+
     angle = if @angle == @previous_angle
       @previous_angle
     else
-      frame = @action_frame.frame_index(start_at: 0, frame_count: 6, hold_for: 2, repeat: false)
+      frame = @action_frame.frame_index(start_at: 0, frame_count: 6, hold_for: 1, repeat: false)
       frame ? @previous_angle + (rotation_increment * frame) : @angle
     end
 
