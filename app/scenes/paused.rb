@@ -15,7 +15,10 @@ module Scene
         },
         {
           key: :return_to_main_menu,
-          on_select: -> (args) { Scene.switch(args, :main_menu) }
+          on_select: -> (args) {
+            args.state.level = nil
+            Scene.switch(args, :main_menu)
+          }
         },
       ]
 

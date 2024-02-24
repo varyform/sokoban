@@ -1,6 +1,6 @@
 module ParticleSystem
   class << self
-    def create(effect, x:, y:, w: 1, h: 1, rate: 20, dir: 0, duration: nil)
+    def create(effect, x:, y:, w: 1, h: 1, rate: 40, dir: 0, duration: nil)
       {
         # effect is a module that implements the Effect interface Eg: app/smoke_effect.rb
         effect: effect,
