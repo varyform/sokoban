@@ -29,7 +29,8 @@ class Tile
 
     if @undoing && !@moving
       @moves.delete(@undoing)
-      state.level.reset_level! if @moves.empty?
+      @last_move_was_undo = true
+      state.level.stats.time = Time.now if @moves.empty?
 
       @undoing = false
     end

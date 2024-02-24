@@ -79,6 +79,7 @@ class Player < Tile
 
     # place_on_top_of!(target)
     @move_to = target.position
+    @last_move_was_undo = false
   end
 
   def play_step
@@ -111,7 +112,7 @@ class Player < Tile
       frame ? @previous_angle + (rotation_increment * frame) : @angle
     end
 
-    super.merge!(angle: angle, source_x: source_x, flip_vertically: @undoing)
+    super.merge!(angle: angle, source_x: source_x, flip_vertically: @undoing || @last_move_was_undo)
     # super.merge!(angle: angle, source_x: source_x)
   end
 end
