@@ -183,7 +183,13 @@ def formatted_duration(total_seconds)
 end
 
 def key_or_button(args, key, button)
-  if args.inputs.controller_one.connected
+  if args.inputs.controller_one.active
+    args.state.last_used_input_method = :controller
+  elsif args.inputs.keyboard.active
+    args.state.last_used_input_method = :keyboard
+  end
+
+  if args.inputs.controller_one.connected && args.state.last_used_input_method == :controller
     button
   else
     key
