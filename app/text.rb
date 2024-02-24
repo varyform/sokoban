@@ -6,7 +6,7 @@
 TEXT = {
   back: "Back",
   controls_title: "Controls",
-  controls_keyboard: "WASD/Arrows to move | J/Z/Space to confirm | Esc/P to pause",
+  controls_keyboard: "WASD/Arrows to move | Space/Enter to confirm | Esc/P to pause",
   controls_gamepad: "Stick/D-Pad to move | A to confirm | Start to pause",
   fullscreen: "Fullscreen",
   made_by: "A game by",
