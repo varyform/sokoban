@@ -60,7 +60,9 @@ class Player < Tile
 
     super
 
-    @angle        = direction_to_angle(@move_direction)
+    @angle          = direction_to_angle(@move_direction)
+    @previous_angle = @angle if @undoing
+
     @action_frame = state.tick_count
 
     if @undoing
