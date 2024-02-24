@@ -10,6 +10,8 @@ class Level
 
     state.level ||= self
 
+    @fireworks = state.fireworks ||= ::Fireworks.create
+
     reset_level!
   end
 
@@ -18,11 +20,17 @@ class Level
   end
 
   def tick
+    if args.state.tick_count.mod_zero?(3)
+      ::Fireworks.launch(@fireworks, args)
+    end
+
     process_inputs
 
     update
 
     render
+
+    ::Fireworks.tick(@fireworks, args) if finished?
 
     @entities.map(&:tick)
   end
@@ -68,6 +76,8 @@ class Level
     @stats                = default_stats
     @completed_at         = nil
     @completion_timer     = 180 # frames
+
+    @fireworks = []
 
     player.set_default_facing!
   end
