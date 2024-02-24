@@ -17,7 +17,7 @@ module Fireworks
         ParticleSystem.create(
           FireworksEffect,
           x: rand(1200) + 40,
-          y: rand(700) + 10,
+          y: rand(680) + 20,
           w: 20,
           h: 20,
           rate: random(30, 50),
