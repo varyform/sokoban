@@ -15,10 +15,26 @@ class Crate < Tile
     12
   end
 
+  def undo_move!
+    # last_tick = super()
+    last_move = @moves[super]
+    return unless last_move
+
+    # last_move = super
+
+    move!(opposite_direction(last_move))
+  end
+
   def move!(direction)
     super
 
-    state.level.stats.pushes += 1
+    # puts @moves
+
+    if @undoing
+      state.level.stats.pushes -= 1
+    else
+      state.level.stats.pushes += 1
+    end
 
     play_sfx(args, "crate/moving", exclusive: true)
 

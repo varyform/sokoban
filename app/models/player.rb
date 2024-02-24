@@ -33,6 +33,22 @@ class Player < Tile
     move!(:down) if down?(args) && can_move?(:down)
     move!(:left) if left?(args) && can_move?(:left)
     move!(:right) if right?(args) && can_move?(:right)
+
+    reset_level! if inputs.keyboard.key_down.q || inputs.keyboard.key_held.q
+    undo_move! if @moves.any? && !@undoing && (inputs.keyboard.key_down.z || inputs.keyboard.key_held.z)
+  end
+
+  def undo_move!
+    # last_tick = super()
+    # puts "LastTick: #{last_tick}"
+    # puts "Moves: #{@moves}"
+    last_move = @moves[super]
+    # puts "Moves: #{@moves.join(',')}"
+
+    puts ">>>>>>>>>> #{last_move}"
+
+    move!(opposite_direction(last_move))
+    state.level.entities.select { |e| e.is_a?(Crate) }.each(&:undo_move!)
   end
 
   def move!(direction)
@@ -43,7 +59,11 @@ class Player < Tile
     @angle        = direction_to_angle(@move_direction)
     @action_frame = state.tick_count
 
-    state.level.stats.moves += 1
+    if @undoing
+      state.level.stats.moves -= 1
+    else
+      state.level.stats.moves += 1
+    end
 
     play_step
 
@@ -85,6 +105,7 @@ class Player < Tile
       frame ? @previous_angle + (rotation_increment * frame) : @angle
     end
 
-    super.merge!(angle: angle, source_x: source_x)
+    super.merge!(angle: angle, source_x: source_x, flip_vertically: @undoing)
+    # super.merge!(angle: angle, source_x: source_x)
   end
 end
