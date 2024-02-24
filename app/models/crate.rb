@@ -15,12 +15,9 @@ class Crate < Tile
     12
   end
 
-  def undo_move!
-    # last_tick = super()
-    last_move = @moves[super]
+  def undo_move!(tick)
+    last_move = @moves[tick]
     return unless last_move
-
-    # last_move = super
 
     move!(opposite_direction(last_move))
   end

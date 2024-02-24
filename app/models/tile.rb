@@ -22,15 +22,16 @@ class Tile
     return unless @moving && @moving <= 0
 
     @x, @y = *@move_to
+    @moves[state.tick_count] = @move_direction unless @undoing
 
     @moving  = false
     @pushing = false
 
     if @undoing && !@moving
+      puts "Move deleted #{@undoing}"
+
       @moves.delete(@undoing)
       @undoing = false
-
-      puts "Move popped!"
     end
 
     @move_to = nil
@@ -56,22 +57,10 @@ class Tile
     false
   end
 
-  def undo_move!
-    @undoing, last_move = *@moves.to_a.last
-
-    puts "Undoing: #{last_move} at #{@undoing} (#{self.class.name})"
-
-    @undoing
-  end
-
   def move!(direction)
     @moving         = frames
     @moving_frame   = state.tick_count
     @move_direction = direction
-
-    @moves[state.tick_count] = direction unless @undoing
-
-    puts "#{self.class.name}: #{@moves}"
   end
 
   def to_sprite
