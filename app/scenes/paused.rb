@@ -19,7 +19,7 @@ module Scene
             args.state.level = nil
             Scene.switch(args, :main_menu)
           }
-        },
+        }
       ]
 
       if args.gtk.platform?(:desktop)
@@ -36,8 +36,7 @@ module Scene
         options.find { |o| o[:key] == :resume }[:on_select].call(args)
       end
 
-      # args.outputs.labels << label(:paused, x: args.grid.w / 2, y: args.grid.top - 200, align: ALIGN_CENTER, size: SIZE_LG, font: FONT_BOLD)
-      args.outputs.sprites << { x: args.grid.w / 2 - 217, y: 220.from_top, w: 434, h: 82, path: 'sprites/logo.png' }
+      Shared.render_logo(args)
     end
   end
 end

@@ -2,11 +2,13 @@ class Level
   attr_gtk
   attr_reader :entities, :stats, :completed_at, :index
 
-  def initialize(args, index)
+  def initialize(args, index, preview: false)
     index = LEVELS.size - 1 if index > LEVELS.size - 1
 
     self.args = args
     @index    = index
+
+    @preview = preview
 
     state.level ||= self
 
@@ -15,6 +17,10 @@ class Level
 
   def title
     @index.succ
+  end
+
+  def preview?
+    @preview
   end
 
   def tick
@@ -89,10 +95,10 @@ class Level
   end
 
   def render
-    outputs.sprites << @entities.sort_by(&:weight).map(&:to_sprite)
-    outputs.labels << label("YOU WON!", x: grid.w / 2, y: grid.h / 2 + 20, align: ALIGN_CENTER) if finished?
+    outputs.sprites << @entities.sort_by(&:weight).reject { |e| preview? ? e.is_a?(Player) : nil }.map(&:to_sprite)
+    outputs.labels << label("YOU WON!", x: grid.w / 2, y: (grid.h / 2) + 20, align: ALIGN_CENTER) if finished?
 
-    render_highscore
+    render_highscore unless preview?
   end
 
   private
@@ -132,22 +138,22 @@ class Level
       case cell
       when 1
         [
-          Empty.new(args, x, y),
-          Crate.new(args, x, y)
+          Empty.new(args, x, y, level: self),
+          Crate.new(args, x, y, level: self)
         ]
       when 2
         [
-          Target.new(args, x, y),
-          Crate.new(args, x, y)
+          Target.new(args, x, y, level: self),
+          Crate.new(args, x, y, level: self)
         ]
-      when 3 then Empty.new(args, x, y)
-      when 4 then Target.new(args, x, y)
+      when 3 then Empty.new(args, x, y, level: self)
+      when 4 then Target.new(args, x, y, level: self)
       when 5 # still should be able to move back to starting position
         [
-          Empty.new(args, x, y),
-          Player.new(args, x, y)
+          Empty.new(args, x, y, level: self),
+          Player.new(args, x, y, level: self)
         ]
-      when 7 then Wall.new(args, x, y)
+      when 7 then Wall.new(args, x, y, level: self)
       end
     end.compact.flatten
   end

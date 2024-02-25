@@ -54,7 +54,7 @@ module Scene
         options.find { |o| o[:key] == :back }[:on_select].call(args)
       end
 
-      args.outputs.labels << label(:settings, x: args.grid.w / 2, y: args.grid.top - 200, align: ALIGN_CENTER, size: SIZE_LG, font: FONT_BOLD)
+      Shared.render_logo(args)
     end
   end
 end

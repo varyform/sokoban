@@ -3,13 +3,15 @@ class Tile
 
   attr_gtk
 
-  attr_accessor :x, :y, :moving
+  attr_accessor :x, :y, :moving, :level
 
-  def initialize(args, x, y)
+  def initialize(args, x, y, level:)
     self.args = args
 
     @x = x
     @y = y
+
+    @level = level
 
     @moving         = false
     @move_direction = nil
@@ -30,7 +32,7 @@ class Tile
     if @undoing && !@moving
       @moves.delete(@undoing)
       @last_move_was_undo = true
-      state.level.stats.time = Time.now if @moves.empty?
+      level.stats.time = Time.now if @moves.empty?
 
       @undoing = false
     end
@@ -77,8 +79,8 @@ class Tile
     end
 
     {
-      x: ((@move_to&.first || x) * SIZE) + (SIZE / frames * offset.x) + ((grid.w - (state.level.width * SIZE)) / 2),
-      y: ((@move_to&.second || y) * SIZE) + (SIZE / frames * offset.y) + ((grid.h - (state.level.height * SIZE)) / 2),
+      x: ((@move_to&.first || x) * SIZE) + (SIZE / frames * offset.x) + ((grid.w - (level.width * SIZE)) / 2),
+      y: ((@move_to&.second || y) * SIZE) + (SIZE / frames * offset.y) + ((grid.h - (level.height * SIZE)) / 2),
       w: SIZE,
       h: SIZE,
       source_w: SIZE,
@@ -96,11 +98,11 @@ class Tile
   def entities_at(direction)
     target_coordinates = direction_to_position(direction)
 
-    state.level.entities.select { |e| e.position == target_coordinates }
+    level.entities.select { |e| e.position == target_coordinates }
   end
 
   def any_of_type_in_place?(klass)
-    state.level.entities.any? { |e| e.instance_of?(klass) && e.position == position }
+    level.entities.any? { |e| e.instance_of?(klass) && e.position == position }
   end
 
   def place_on_top_of!(other)
