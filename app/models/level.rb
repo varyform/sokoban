@@ -2,13 +2,11 @@ class Level
   attr_gtk
   attr_reader :entities, :stats, :completed_at, :index
 
-  def initialize(args, index, preview: false)
+  def initialize(args, index)
     index = LEVELS.size - 1 if index > LEVELS.size - 1
 
     self.args = args
     @index    = index
-
-    @preview = preview
 
     state.level ||= self
 
@@ -17,10 +15,6 @@ class Level
 
   def title
     @index.succ
-  end
-
-  def preview?
-    @preview
   end
 
   def tick
@@ -95,10 +89,11 @@ class Level
   end
 
   def render
-    outputs.sprites << @entities.sort_by(&:weight).reject { |e| preview? ? e.is_a?(Player) : nil }.map(&:to_sprite)
+    static, dynamic = @entities.sort_by(&:weight).map(&:to_sprite)
+    outputs.sprites <<
     outputs.labels << label("YOU WON!", x: grid.w / 2, y: (grid.h / 2) + 20, align: ALIGN_CENTER) if finished?
 
-    render_highscore unless preview?
+    render_highscore
   end
 
   private

@@ -78,13 +78,11 @@ class Tile
       { x: 0, y: 0 }
     end
 
-    size = preview? ? SIZE / 8 : SIZE
-
     {
-      x: ((@move_to&.first || x) * size) + (size / frames * offset.x) + ((grid.w - (level.width * size)) / 2),
-      y: ((@move_to&.second || y) * size) + (size / frames * offset.y) + ((grid.h - (level.height * size)) / 2),
-      w: size,
-      h: size,
+      x: ((@move_to&.first || x) * SIZE) + (SIZE / frames * offset.x) + ((grid.w - (level.width * SIZE)) / 2),
+      y: ((@move_to&.second || y) * SIZE) + (SIZE / frames * offset.y) + ((grid.h - (level.height * SIZE)) / 2),
+      w: SIZE,
+      h: SIZE,
       source_w: SIZE,
       source_h: SIZE,
       source_x: 0,
