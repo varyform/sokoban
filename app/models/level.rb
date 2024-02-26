@@ -89,8 +89,7 @@ class Level
   end
 
   def render
-    static, dynamic = @entities.sort_by(&:weight).map(&:to_sprite)
-    outputs.sprites <<
+    outputs.sprites << @entities.sort_by(&:weight).map(&:to_sprite)
     outputs.labels << label("YOU WON!", x: grid.w / 2, y: (grid.h / 2) + 20, align: ALIGN_CENTER) if finished?
 
     render_highscore
