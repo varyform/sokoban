@@ -1,6 +1,5 @@
 module Scene
   class << self
-    # scene reached from gameplay when the player needs a break
     def tick_select_level(args)
       draw_bg(args, r: 30, g: 18, b: 39)
 
@@ -15,7 +14,6 @@ module Scene
     end
 
     def render(args)
-      # args.state.levels.map(&:render)
       sprite = {
         x: (args.grid.w - (2532 / 4)) / 2,
         y: ((args.grid.h - (1216 / 4)) / 2) - 50,
