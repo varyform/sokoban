@@ -11,17 +11,19 @@ module Scene
       end
 
       render(args)
+      Shared.render_logo(args)
     end
 
     def render(args)
       # args.state.levels.map(&:render)
       sprite = {
-        x: 10,
-        y: 10,
-        w: 2532 / 2,
-        h: 1216 / 2,
+        x: (args.grid.w - 2532 / 4) / 2,
+        y: (args.grid.h - 1216 / 4) / 2 - 50,
+        w: 2532 / 4,
+        h: 1216 / 4,
         path: 'sprites/levels.png'
       }
+
       args.outputs.sprites << sprite
     end
   end
