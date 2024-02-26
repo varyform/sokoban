@@ -17,8 +17,8 @@ module Scene
     def render(args)
       # args.state.levels.map(&:render)
       sprite = {
-        x: (args.grid.w - 2532 / 4) / 2,
-        y: (args.grid.h - 1216 / 4) / 2 - 50,
+        x: (args.grid.w - (2532 / 4)) / 2,
+        y: ((args.grid.h - (1216 / 4)) / 2) - 50,
         w: 2532 / 4,
         h: 1216 / 4,
         path: 'sprites/levels.png'
