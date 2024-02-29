@@ -90,10 +90,10 @@ class Level
 
     @player = nil
 
-    static = @entities.select { |e| e.is_a?(Wall) }
-    args.render_target(:background).sprites << static.map(&:to_sprite)
+    # static = @entities.select { |e| e.is_a?(Wall) }
+    # args.render_target(:background).sprites << static.map(&:to_sprite)
 
-    @entities.reject! { |e| e.is_a?(Wall) }
+    # @entities.reject! { |e| e.is_a?(Wall) }
 
     player.set_default_facing!
   end
@@ -112,9 +112,9 @@ class Level
   end
 
   def render
-    outputs.sprites << { x: 0, y: 0, w: grid.w, h: grid.h, path: :background }
+    # outputs.sprites << { x: 0, y: 0, w: grid.w, h: grid.h, path: :background }
     outputs.sprites << @entities.map(&:to_sprite)
-    outputs.labels << label("YOU WON!", x: grid.w / 2, y: grid.h / 2 + 20, align: ALIGN_CENTER) if finished?
+    outputs.labels << label("YOU WON!", x: grid.w / 2, y: (grid.h / 2) + 20, align: ALIGN_CENTER) if finished?
 
     render_highscore
   end

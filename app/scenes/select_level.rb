@@ -9,20 +9,33 @@ module Scene
         Scene.switch(args, :back)
       end
 
-      render_select_level(args)
+      if primary_down?(args.inputs)
+        play_sfx(args, :select)
+
+        Scene.switch(args, :gameplay, reset: true)
+      end
+
+      args.state.level ||= Level.new(args, 0)
+
+      if left?(args) && args.state.level.index.positive? && !@switching
+        @switching = 20
+        args.state.level.index -= 1
+        args.state.level.reset!
+      elsif right?(args) && args.state.level.index <= args.state.highscores.keys.max.to_i && !@switching
+        @switching = 20
+        args.state.level.index += 1
+        args.state.level.reset!
+      end
+
+      if @switching
+        @switching -= 1
+        @switching = nil if @switching.zero?
+      end
+
+      args.state.level.render
+      args.outputs.labels << label("LEVEL #{args.state.level.title}", x: args.grid.w / 2, y: args.grid.h / 2, align: ALIGN_CENTER)
+
       Shared.render_logo(args)
-    end
-
-    def render_select_level(args)
-      # sprite = {
-      #   x: (args.grid.w - (2532 / 4)) / 2,
-      #   y: ((args.grid.h - (1216 / 4)) / 2) - 50,
-      #   w: 2532 / 4,
-      #   h: 1216 / 4,
-      #   path: 'sprites/levels.png'
-      # }
-
-      # args.outputs.sprites << sprite
     end
   end
 end
