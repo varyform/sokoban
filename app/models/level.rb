@@ -1,6 +1,7 @@
 class Level
   attr_gtk
-  attr_reader :entities, :stats, :completed_at, :index
+  attr_reader :entities, :stats, :completed_at
+  attr_accessor :index
 
   def initialize(args, index)
     index = LEVELS.size - 1 if index > LEVELS.size - 1
@@ -50,20 +51,30 @@ class Level
 
     if all_done
       play_sfx(args, "won")
-      @completed_at = Time.now
 
-      if state.highscores[index.to_s]
-        state.highscores[index.to_s]["moves"]  = [stats.moves, state.highscores[index.to_s]["moves"]].min
-        state.highscores[index.to_s]["pushes"] = [stats.pushes, state.highscores[index.to_s]["pushes"]].min
-        state.highscores[index.to_s]["time"] = [@completed_at - stats.time, state.highscores[index.to_s]["time"].to_f].min
-      else
-        state.highscores[index.to_s] = { "moves" => stats.moves, "pushes" => stats.pushes, "time" => ((completed_at || Time.now) - stats.time) }
-      end
-
-      gtk.write_file("highscores.json", highscores_to_json(state.highscores))
+      record_highscore!
     end
 
     all_done
+  end
+
+  def record_highscore!
+    @completed_at = Time.now
+    lvl = index.to_s
+
+    if state.highscores[lvl]
+      state.highscores[lvl]["moves"]  = [stats.moves, state.highscores[lvl]["moves"]].min
+      state.highscores[lvl]["pushes"] = [stats.pushes, state.highscores[lvl]["pushes"]].min
+      state.highscores[lvl]["time"]   = [@completed_at - stats.time, state.highscores[lvl]["time"].to_f].min
+    else
+      state.highscores[lvl] = {
+        "moves"  => stats.moves,
+        "pushes" => stats.pushes,
+        "time"   => ((completed_at || Time.now) - stats.time)
+      }
+    end
+
+    gtk.write_file("highscores.json", highscores_to_json(state.highscores))
   end
 
   def reset!
@@ -78,6 +89,11 @@ class Level
     @fireworks = state.fireworks = ::Fireworks.create
 
     @player = nil
+
+    static = @entities.select { |e| e.is_a?(Wall) }
+    args.render_target(:background).sprites << static.map(&:to_sprite)
+
+    @entities.reject! { |e| e.is_a?(Wall) }
 
     player.set_default_facing!
   end
@@ -96,6 +112,7 @@ class Level
   end
 
   def render
+    outputs.sprites << { x: 0, y: 0, w: grid.w, h: grid.h, path: :background }
     outputs.sprites << @entities.map(&:to_sprite)
     outputs.labels << label("YOU WON!", x: grid.w / 2, y: grid.h / 2 + 20, align: ALIGN_CENTER) if finished?
 
