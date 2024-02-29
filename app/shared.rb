@@ -3,7 +3,7 @@ module Shared
     def render_logo(args)
       args.outputs.labels << label(
         "v#{version}",
-        x: args.grid.w / 2 + 220, y: 200.from_top,
+        x: (args.grid.w / 2) + 220, y: 200.from_top,
         size: SIZE_XS, align: ALIGN_LEFT, color: { r: 130, g: 250, b: 250 })
 
       args.outputs.labels << label(
