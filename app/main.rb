@@ -2,6 +2,8 @@ require "app/input"
 require "app/sprite"
 require "app/util"
 
+require "app/shared"
+
 require "app/constants"
 require "app/menu"
 require "app/scene"
