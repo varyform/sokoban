@@ -10,7 +10,7 @@ class Level
 
     state.level ||= self
 
-    reset_level!
+    reset!
   end
 
   def title
@@ -40,7 +40,7 @@ class Level
 
     GameSetting.save_settings(args)
 
-    reset_level!
+    reset!
   end
 
   def finished?
@@ -66,7 +66,7 @@ class Level
     all_done
   end
 
-  def reset_level!
+  def reset!
     @level_cache = {}
 
     @map                  = LEVELS[@index]
@@ -89,7 +89,7 @@ class Level
   def process_inputs
     if inputs.keyboard.key_up.q || (inputs.controller_one.connected && inputs.controller_one.key_down.l1)
       gtk.notify_extended! message: 'Level has been reset!', duration: 90, env: :prod
-      reset_level!
+      reset!
     else
       player.process_inputs
     end
