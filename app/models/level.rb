@@ -46,7 +46,6 @@ class Level
   def finished?
     return true if @completed_at
 
-    all_done = ##@entities.select { |e| e.is_a?(Crate) }.all? { |crate| crate.any_of_type_in_place?(Target) }
     all_done = @level_cache[:crates].map(&:position).sort == @level_cache[:targets]
 
     if all_done
