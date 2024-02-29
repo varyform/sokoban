@@ -89,8 +89,7 @@ class Level
   def process_inputs
     player.process_inputs
 
-    if inputs.keyboard.key_down.q || inputs.keyboard.key_held.q ||
-       (inputs.controller_one.connected && inputs.controller_one.key_down.l1)
+    if inputs.keyboard.key_up.q || (inputs.controller_one.connected && inputs.controller_one.key_down.l1)
       gtk.notify_extended! message: 'Level has been reset!', duration: 90, env: :prod
       reset_level!
     end
