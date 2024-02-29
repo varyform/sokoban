@@ -53,6 +53,7 @@ class Player < Tile
   end
 
   def move!(direction)
+    @bored_since = nil
     @previous_angle = direction_to_angle(@move_direction)
 
     super
@@ -86,12 +87,19 @@ class Player < Tile
   end
 
   def sprite
-    @pushing ? "sprites/gameplay/5-1.png" : "sprites/gameplay/5.png"
+    # @pushing ? "sprites/gameplay/5-1.png" :
+    "sprites/gameplay/5.png"
+  end
+
+  def tick
+    super
+
+    @bored_since ||= state.tick_count
   end
 
   def to_sprite
     source_x = if @moving
-      SIZE * @moving_frame.frame_index(start_at: 0, frame_count: 4, repeat_index: 0, hold_for: 3, repeat: true)
+      SIZE * @moving_frame.frame_index(count: 4, hold_for: 3, repeat: true)
     else
       0
     end
@@ -111,7 +119,9 @@ class Player < Tile
       frame ? @previous_angle + (rotation_increment * frame) : @angle
     end
 
+    source_x += SIZE * 4 if @pushing
+    source_x = SIZE * (8 + @bored_since.frame_index(count: 4, hold_for: 16, repeat: true)) if @bored_since && state.tick_count > @bored_since + 1200
+
     super.merge(angle: angle, source_x: source_x, flip_vertically: @undoing || @last_move_was_undo)
-    # super.merge!(angle: angle, source_x: source_x)
   end
 end
