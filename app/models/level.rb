@@ -87,11 +87,11 @@ class Level
   end
 
   def process_inputs
-    player.process_inputs
-
     if inputs.keyboard.key_up.q || (inputs.controller_one.connected && inputs.controller_one.key_down.l1)
       gtk.notify_extended! message: 'Level has been reset!', duration: 90, env: :prod
       reset_level!
+    else
+      player.process_inputs
     end
   end
 
