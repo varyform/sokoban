@@ -46,7 +46,8 @@ class Level
   def finished?
     return true if @completed_at
 
-    all_done = @entities.select { |e| e.is_a?(Crate) }.all? { |crate| crate.any_of_type_in_place?(Target) }
+    all_done = ##@entities.select { |e| e.is_a?(Crate) }.all? { |crate| crate.any_of_type_in_place?(Target) }
+    all_done = @level_cache[:crates].map(&:position).sort == @level_cache[:targets]
 
     if all_done
       play_sfx(args, "won")
@@ -67,6 +68,8 @@ class Level
   end
 
   def reset_level!
+    @level_cache = {}
+
     @map                  = LEVELS[@index]
     @entities             = setup
     @stats                = default_stats
@@ -75,11 +78,13 @@ class Level
 
     @fireworks = state.fireworks = ::Fireworks.create
 
+    @player = nil
+
     player.set_default_facing!
   end
 
   def player
-    @entities.find { |e| e.is_a?(Player) }
+    @player ||= @entities.find { |e| e.is_a?(Player) }
   end
 
   def process_inputs
@@ -93,7 +98,7 @@ class Level
   end
 
   def render
-    outputs.sprites << @entities.sort_by(&:weight).map(&:to_sprite)
+    outputs.sprites << @entities.map(&:to_sprite)
     outputs.labels << label("YOU WON!", x: grid.w / 2, y: grid.h / 2 + 20, align: ALIGN_CENTER) if finished?
 
     render_highscore
@@ -153,7 +158,10 @@ class Level
         ]
       when 7 then Wall.new(args, x, y)
       end
-    end.compact.flatten
+    end.compact.flatten.sort_by(&:weight).tap do |map|
+      @level_cache[:crates]  = map.select { |e| e.is_a?(Crate) }
+      @level_cache[:targets] = map.select { |e| e.is_a?(Target) }.map(&:position).sort
+    end
   end
 
   def default_stats
