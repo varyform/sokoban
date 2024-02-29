@@ -11,7 +11,7 @@ module Shared
         x: args.grid.w / 2, y: 48,
         size: SIZE_XS, align: ALIGN_CENTER, color: { r: 200, g: 200, b: 200 })
 
-      args.outputs.sprites << { x: args.grid.w / 2 - 217, y: 220.from_top, w: 434, h: 82, path: 'sprites/logo.png' }
+      args.outputs.sprites << { x: (args.grid.w / 2) - 217, y: 220.from_top, w: 434, h: 82, path: 'sprites/logo.png' }
     end
   end
 end
