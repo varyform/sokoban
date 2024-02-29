@@ -87,7 +87,6 @@ class Player < Tile
   end
 
   def sprite
-    # @pushing ? "sprites/gameplay/5-1.png" :
     "sprites/gameplay/5.png"
   end
 
