@@ -114,7 +114,7 @@ class Player < Tile
       frame ? @previous_angle + (rotation_increment * frame) : @angle
     end
 
-    super.merge!(angle: angle, source_x: source_x, flip_vertically: @undoing || @last_move_was_undo)
+    super.merge(angle: angle, source_x: source_x, flip_vertically: @undoing || @last_move_was_undo)
     # super.merge!(angle: angle, source_x: source_x)
   end
 end
