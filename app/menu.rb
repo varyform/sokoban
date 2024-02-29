@@ -9,7 +9,7 @@ module Menu
     #     on_select: -> (args) { "do some stuff in this lambda" }
     #   }
     # ]
-    def tick(args, state_key, options, menu_y: 420)
+    def tick(args, state_key, options, menu_y: 450)
       args.state.send(state_key).current_option_i ||= 0
       args.state.send(state_key).hold_delay ||= 0
       menu_state = args.state.send(state_key)

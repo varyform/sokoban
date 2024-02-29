@@ -4,7 +4,7 @@ class Wall < Tile
   end
 
   def to_sprite
-    super.merge(static: true, source_x: SIZE * tile_index)
+    super.merge(static: true, source_x: SOURCE_SIZE * tile_index)
   end
 
   def weight
