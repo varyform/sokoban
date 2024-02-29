@@ -34,30 +34,7 @@ module Scene
 
       Menu.tick(args, :main_menu, options)
 
-      labels = []
-      # labels << label(
-      #   "v#{version}",
-      #   x: args.grid.right - 24, y: 48,
-      #   size: SIZE_XS, align: ALIGN_RIGHT, color: DARK_PURPLE)
-      # labels << label(
-      #   title.upcase, x: args.grid.w / 2, y: args.grid.top - 100,
-      #   size: SIZE_LG, align: ALIGN_CENTER, font: FONT_BOLD)
-      labels << label(
-        "#{text(:made_by)} #{dev_title}",
-        x: args.grid.w / 2, y: 48,
-        size: SIZE_XS, align: ALIGN_CENTER, color: { r: 200, g: 200, b: 200 })
-      # labels << label(
-      #   args.inputs.controller_one.connected ? :controls_gamepad : :controls_keyboard,
-      #   x: args.grid.right - 24, y: 48,
-      #   size: SIZE_XS, align: ALIGN_RIGHT)
-
-      labels << label(
-        "v#{version}",
-        x: args.grid.w / 2 + 220, y: 200.from_top,
-        size: SIZE_XS, align: ALIGN_LEFT, color: { r: 130, g: 250, b: 250 })
-
-      args.outputs.labels << labels
-      args.outputs.sprites << { x: args.grid.w / 2 - 217, y: 220.from_top, w: 434, h: 82, path: 'sprites/logo.png' }
+      Shared.render_logo(args)
     end
   end
 end
