@@ -114,7 +114,7 @@ class Level
   def render
     # outputs.sprites << { x: 0, y: 0, w: grid.w, h: grid.h, path: :background }
     outputs.sprites << @entities.map(&:to_sprite)
-    outputs.labels << label("YOU WON!", x: grid.w / 2, y: (grid.h / 2) + 20, align: ALIGN_CENTER) if finished?
+    show_notice(args, "YOU WON!") if finished?
 
     render_highscore
   end

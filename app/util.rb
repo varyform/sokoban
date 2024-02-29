@@ -195,3 +195,37 @@ def key_or_button(args, key, button)
     key
   end
 end
+
+def show_notice(args, text, size: SIZE_MD)
+  w, h = args.gtk.calcstringbox(text, size, "fonts/diffusion-light")
+
+  args.outputs.primitives << {
+    x:                (args.grid.w - w - 40) / 2,
+    y:                (args.grid.h - h - 30) / 2,
+    w:                w + 40,
+    h:                h,
+    r:                255,
+    g:                255,
+    b:                255,
+    a:                180,
+    anchor_x:         0,
+    anchor_y:         0,
+    primitive_marker: :solid,
+  }
+
+  args.outputs.primitives << {
+    x:                (args.grid.w - w - 40) / 2,
+    y:                (args.grid.h - h - 30) / 2,
+    w:                w + 40,
+    h:                h,
+    r:                255,
+    g:                255,
+    b:                255,
+    a:                245,
+    anchor_x:         0,
+    anchor_y:         0,
+    primitive_marker: :border,
+  }
+
+  args.outputs.labels << label(text, x: args.grid.w / 2, y: args.grid.h / 2, align: ALIGN_CENTER, color: TRUE_BLACK)
+end

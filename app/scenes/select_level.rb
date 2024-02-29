@@ -33,9 +33,10 @@ module Scene
       end
 
       args.state.level.render
-      args.outputs.labels << label("LEVEL #{args.state.level.title}", x: args.grid.w / 2, y: args.grid.h / 2, align: ALIGN_CENTER)
 
       Shared.render_logo(args)
+
+      show_notice(args, "LEVEL #{args.state.level.title}")
     end
   end
 end
