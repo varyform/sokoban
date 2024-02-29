@@ -6,14 +6,14 @@ module Scene
       options = [
         {
           key: :start,
-          on_select: -> (args) {
+          on_select: ->(args) {
             args.state.setting.level = 0
             Scene.switch(args, :gameplay, reset: true)
           }
         },
         {
           key: :settings,
-          on_select: -> (args) { Scene.switch(args, :settings, reset: true, return_to: :main_menu) }
+          on_select: ->(args) { Scene.switch(args, :settings, reset: true, return_to: :main_menu) }
         },
       ]
 
@@ -21,14 +21,19 @@ module Scene
         args.state.setting.level = args.state.highscores.keys.max.to_i + 1
         options.unshift({
           key: :continue,
-          on_select: -> (args) { Scene.switch(args, :gameplay, reset: false) }
+          on_select: ->(args) { Scene.switch(args, :gameplay, reset: false) }
+        })
+
+        options.insert(2, {
+          key: :select_level,
+          on_select: ->(args) { Scene.switch(args, :select_level, reset: false, return_to: :main_menu) }
         })
       end
 
       if args.gtk.platform?(:desktop)
         options << {
           key: :quit,
-          on_select: -> (args) { args.gtk.request_quit }
+          on_select: ->(args) { args.gtk.request_quit }
         }
       end
 

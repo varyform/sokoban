@@ -12,6 +12,7 @@ require "app/sound"
 require "app/text"
 
 require "app/scenes/gameplay"
+require "app/scenes/select_level"
 require "app/scenes/main_menu"
 require "app/scenes/paused"
 require "app/scenes/settings"

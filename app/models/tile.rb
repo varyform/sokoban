@@ -1,5 +1,10 @@
 class Tile
   SIZE = 36
+  SOURCE_SIZE = 36
+
+  def size
+    @@size
+  end
 
   attr_gtk
 
@@ -81,8 +86,8 @@ class Tile
       y: ((@move_to&.second || y) * SIZE) + (SIZE / frames * offset.y) + ((grid.h - (state.level.height * SIZE)) / 2),
       w: SIZE,
       h: SIZE,
-      source_w: SIZE,
-      source_h: SIZE,
+      source_w: SOURCE_SIZE,
+      source_h: SOURCE_SIZE,
       source_x: 0,
       source_y: 0,
       path: sprite

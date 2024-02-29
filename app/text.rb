@@ -20,7 +20,8 @@ TEXT = {
   settings: "Settings",
   sfx: "Sound Effects",
   continue: "Continue",
-  start: "Start",
+  select_level: "Select Level",
+  start: "Start"
 }
 
 # Gets the text for the passed in `key`. Raises if it does not exist. We don't
