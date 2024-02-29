@@ -87,7 +87,7 @@ class Player < Tile
   end
 
   def sprite
-    "sprites/gameplay/5.png"
+    "sprites/gameplay/player.png"
   end
 
   def tick
