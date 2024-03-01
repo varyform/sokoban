@@ -18,7 +18,7 @@ module Scene
       ]
 
       if args.state.highscores.keys.any?
-        args.state.setting.level = args.state.highscores.keys.max.to_i + 1
+        args.state.setting.level = args.state.highscores.keys.map(&:to_i).max.succ
         options.unshift({
           key: :continue,
           on_select: ->(args) { Scene.switch(args, :gameplay, reset: false) }

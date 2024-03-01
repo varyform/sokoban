@@ -5,7 +5,7 @@ module Scene
       labels = []
       sprites = []
 
-      args.state.setting.level ||= args.state.highscores.keys.max.to_i + 1
+      args.state.setting.level ||= args.state.highscores.keys.map(&:to_i).max.succ
       args.state.level ||= Level.new(args, args.state.setting.level)
 
       args.state.level.tick

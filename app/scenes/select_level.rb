@@ -21,7 +21,7 @@ module Scene
         @switching = 20
         args.state.level.index -= 1
         args.state.level.reset!
-      elsif right?(args) && args.state.level.index <= args.state.highscores.keys.max.to_i && !@switching
+      elsif right?(args) && args.state.level.index <= args.state.highscores.keys.map(&:to_i).max && !@switching
         @switching = 20
         args.state.level.index += 1
         args.state.level.reset!

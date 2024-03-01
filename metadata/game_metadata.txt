@@ -2,7 +2,7 @@ devid=varyform
 devtitle=varyform
 gameid=sokoban-varyform
 gametitle=Soko-Ban
-version=0.9.6-dev
+version=0.9.7-dev
 icon=metadata/icon.png
 
 # === Flags available at all licensing tiers ===
