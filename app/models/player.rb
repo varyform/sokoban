@@ -98,7 +98,7 @@ class Player < Tile
 
   def to_sprite
     source_x = if @moving
-      SOURCE_SIZE * @moving_frame.frame_index(count: 4, hold_for: 3, repeat: true)
+      SOURCE_SIZE * @moving_frame.frame_index(count: 3, hold_for: 4, repeat_index: 1, repeat: true)
     else
       0
     end
@@ -118,9 +118,16 @@ class Player < Tile
       frame ? @previous_angle + (rotation_increment * frame) : @angle
     end
 
-    source_x += SOURCE_SIZE * 4 if @pushing
-    source_x = SOURCE_SIZE * (8 + @bored_since.frame_index(count: 4, hold_for: 16, repeat: true)) if @bored_since && state.tick_count > @bored_since + 1200
+    # source_x += SOURCE_SIZE * 4 if @pushing
+    # source_x = SOURCE_SIZE * (8 + @bored_since.frame_index(count: 4, hold_for: 16, repeat: true)) if @bored_since && state.tick_count > @bored_since + 1200
 
-    super.merge(angle: angle, source_x: source_x, flip_vertically: @undoing || @last_move_was_undo)
+    source_x += case @angle
+    when 0 then 0
+    when 90 then 6 * SOURCE_SIZE
+    when 180 then 3 * SOURCE_SIZE
+    when 270 then 9 * SOURCE_SIZE
+    end
+
+    super.merge(source_x: source_x, flip_vertically: @undoing || @last_move_was_undo)
   end
 end

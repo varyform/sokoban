@@ -1,10 +1,10 @@
 class Wall < Tile
   def sprite
-    "sprites/gameplay/7.png"
+    "sprites/gameplay/block_01.png"
   end
 
   def to_sprite
-    super.merge(static: true, source_x: SOURCE_SIZE * tile_index)
+    super #.merge(static: true, source_x: SOURCE_SIZE * tile_index)
   end
 
   def weight

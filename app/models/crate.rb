@@ -48,9 +48,9 @@ class Crate < Tile
 
   def sprite
     if any_of_type_in_place?(Target)
-      "sprites/gameplay/2.png"
+      "sprites/gameplay/crate_12.png"
     else
-      "sprites/gameplay/1.png"
+      "sprites/gameplay/crate_02.png"
     end
   end
 end

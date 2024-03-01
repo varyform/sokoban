@@ -1,6 +1,6 @@
 class Tile
-  SIZE = 36
-  SOURCE_SIZE = 36
+  SIZE = 48
+  SOURCE_SIZE = 64
 
   def size
     @@size

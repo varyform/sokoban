@@ -1,6 +1,6 @@
 class Empty < Tile
   def sprite
-    "sprites/gameplay/3.png"
+    "sprites/gameplay/ground_06.png"
   end
 
   def can_move?(_direction)
