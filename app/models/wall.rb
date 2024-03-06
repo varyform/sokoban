@@ -1,6 +1,6 @@
 class Wall < Tile
   def sprite
-    "sprites/gameplay/7.png"
+    "sprites/gameplay/wall.png"
   end
 
   def to_sprite

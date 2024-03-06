@@ -44,7 +44,7 @@ module Menu
               h: 36,
               source_w: 36,
               source_h: 36,
-              path: 'sprites/gameplay/5.png'
+              path: 'sprites/gameplay/player.png'
             }
           end
         end

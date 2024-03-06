@@ -1,6 +1,6 @@
 class Target < Tile
   def sprite
-    "sprites/gameplay/4.png"
+    "sprites/gameplay/target.png"
   end
 
   def weight
