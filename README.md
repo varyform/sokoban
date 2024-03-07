@@ -2,4 +2,4 @@
 
 Bad ruby, first game.
 
-Thanks you https://github.com/DragonRidersUnite/scale
+Thank you https://github.com/DragonRidersUnite/scale
